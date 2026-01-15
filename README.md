@@ -38,6 +38,7 @@ Gemini CLI、OpenCode、Cursor、Claude Code、Claude、OpenAI Codex 等
 | ----- | ---- | ---- |
 | react-best-practices | Vercel Engineering 提供的 React 和 Next.js 性能优化指南。包含45条规则，涵盖消除瀑布流、Bundle优化、SSR性能等方面。 | [GitHub](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) |
 | web-design-guidelines | Web界面设计规范审核。用于检查UI代码是否符合可访问性、无障碍设计等Web最佳实践。 | [GitHub](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
+| skill-creator | 创建有效 Skills 的指南。涵盖技能设计原则、文件结构（SKILL.md、scripts、references、assets）、渐进式披露模式、以及从初始化到打包的完整创建流程。 | [GitHub](https://github.com/anthropics/skills/tree/main/skills/skill-creator) |
 
 ---
 
