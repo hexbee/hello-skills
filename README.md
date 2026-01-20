@@ -56,8 +56,8 @@ Gemini CLI、OpenCode、Cursor、Claude Code、Claude、OpenAI Codex 等
 ## 添加新 Skill
 
 ```bash
-# 克隆 skill 仓库到 skills/ 目录
-git clone <skill-repo-url> skills/<skill-name>
+# 使用 skills CLI 添加 skill
+npx skills add https://github.com/hexbee/hello-skills
 ```
 
 每个 Skill 需包含：
@@ -72,3 +72,5 @@ git clone <skill-repo-url> skills/<skill-name>
 - [Agent Skills 官方文档](https://agentskills.io)
 - [Anthropic Skills 仓库](https://github.com/anthropics/skills)
 - [技能规范 (Specification)](https://agentskills.io/specification)
+- [skills NPM 包](https://www.npmjs.com/package/skills)
+- [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills)
