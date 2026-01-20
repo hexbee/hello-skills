@@ -40,6 +40,16 @@ Gemini CLI、OpenCode、Cursor、Claude Code、Claude、OpenAI Codex 等
 | web-design-guidelines | Web界面设计规范审核。用于检查UI代码是否符合可访问性、无障碍设计等Web最佳实践。 | [GitHub](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
 | skill-creator | 创建有效 Skills 的指南。涵盖技能设计原则、文件结构（SKILL.md、scripts、references、assets）、渐进式披露模式、以及从初始化到打包的完整创建流程。 | [GitHub](https://github.com/anthropics/skills/tree/main/skills/skill-creator) |
 
+### Cognitive & Mindset
+
+| Skill | 描述 | 来源 |
+| ----- | ---- | ---- |
+| cross-domain-thinking-toolbox | 应用25种专业思维模型解决复杂问题。适用于：(1) 需要多角度思考的挑战，(2) 困于单一思路，(3) 需要创新解决方案，(4) 多利益相关方决策，(5) 理解复杂人类行为，(6) 打破认知偏见。 | 本地 |
+| debog-yourself | 帮助用户识别和摆脱心理困境。当用户感到卡住、无法前进、陷入僵局或面临选择困难时使用。提供诊断框架（激活能量不足/糟糕的逃脱计划/自我困境）和具体策略。 | 本地 |
+| deep-productivity | 深度工作生产力 mastery。通过三种工作类型框架（建设/维护/恢复）帮助用户建立可持续的深度工作习惯。仅需1小时/天即可产生有意义的目标进展。 | 本地 |
+| learning-first-principles | 基于学习第一性原理的认知框架。提供学习方法诊断、效率评估和优化建议。核心原理链：自学→归纳总结→自我输出→表达重构→逻辑理解→实践。 | 本地 |
+| retrospective-master | 专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analysis-Insight）引导用户进行结构化复盘。将经历转化为经验，将经验转化为能力。 | 本地 |
+
 ---
 
 <a name="add-skill"></a>
