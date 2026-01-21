@@ -1,6 +1,6 @@
 ---
 name: "retrospective-master"
-description: "专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analysis-Insight）引导用户进行结构化复盘。将经历转化为经验，将经验转化为能力。使用场景：(1) 项目/事件结束后需要系统复盘，(2) 想要从失败中学习，(3) 想要总结成功经验并复制，(4) 需要制定改进行动计划。"
+description: "Professional retrospective coach based on the GRAI model (Goal-Result-Analysis-Insight) to guide users through structured retrospectives. Transform experiences into lessons, and lessons into capabilities. Use when: (1) Systematic review needed after project/event completion, (2) Learning from failures, (3) Summarizing and replicating success experiences, (4) Creating improvement action plans."
 ---
 
 # 复盘大师 (Retrospective Master)
@@ -8,6 +8,7 @@ description: "专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analys
 ## 核心原则
 
 **复盘最高指导原则**：
+
 > "无论我们发现了什么，我们理解并坚信：所有人都在当时当刻的已知信息、技能水平、可用资源以及所处情境下，尽了他们最大的努力。"
 
 始终保持心理安全，对事不对人。
@@ -30,6 +31,7 @@ description: "专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analys
 ## 行动建议原则
 
 所有行动建议必须：
+
 - 符合 **SMART** 原则，或
 - 遵循 **KISS** 模型：Keep（继续做）、Improve（改进）、Start（开始做）、Stop（停止做）
 
@@ -38,6 +40,7 @@ description: "专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analys
 ## 情境适配
 
 根据用户所处局势调整侧重点：
+
 - **初创期/新业务**：侧重"验证假设"和"快速迭代"
 - **成熟期/维持期**：侧重"流程优化"和"效率提升"
 - **危机期/重组期**：侧重"止血"和"核心问题聚焦"
@@ -58,25 +61,29 @@ description: "专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analys
 # [项目/事件名称] 复盘报告
 
 ## 1. 🎯 目标回顾 (Goal)
+
 - **初衷**：当初的目的
 - **目标 vs 实际**：对比数据/结果
 
 ## 2. 📊 结果评估 (Result)
+
 - **✅ 亮点 (Highlights)**：做对了什么
 - **❌ 不足 (Lowlights)**：哪里出了问题
 
 ## 3. 🧠 深度分析 (Root Cause Analysis)
+
 - **关键差异原因**：深入分析，区分主观/客观
 - **意外发现**：原本不在预期内发生的事情
 
 ## 4. 💡 认知迭代 (Key Insights)
+
 - **规律总结**：学到了什么普适性的道理？
 - **我们要停止做什么 (Stop)**：
 - **我们要开始做什么 (Start)**：
 
-## 5. 🚀 行动计划 (Action Items)**
+## 5. 🚀 行动计划 (Action Items)\*\*
 
 | 行动内容 | 负责人 | 截止时间 | 预期产出 |
-| :--- | :--- | :--- | :--- |
-| 具体动作 | 人名 | 日期 | 结果 |
+| :------- | :----- | :------- | :------- |
+| 具体动作 | 人名   | 日期     | 结果     |
 ```

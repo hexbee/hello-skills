@@ -1,5 +1,5 @@
 ---
-name: deep-productivity
+name: "deep-productivity"
 description: "Master deep work productivity through the three types of work framework (Building, Maintenance, Recovery). Use when user needs to: (1) Build a sustainable deep work routine with just 1 hour/day, (2) Create vision/anti-vision for life direction, (3) Structure goals using the 10-year → 1-year → 1-month → 1-week hierarchy, (4) Apply project-based learning to bridge skill gaps, (5) Identify lever-moving tasks that actually progress goals, (6) Balance focus work with necessary recovery for creativity."
 ---
 
@@ -33,12 +33,12 @@ Follow this sequence to establish a sustainable deep work practice:
 
 Assess where you are on the focus spectrum:
 
-| State | Symptoms | Root Cause |
-|-------|----------|------------|
-| Distracted | Multiple programs running, attention split | Lack of clarity |
-| Anxious | Overwhelmed by goals, paralyzed | Challenge >> Skill |
-| Bored | Repetitive work, self-centered thoughts | Challenge << Skill |
-| Flow | Challenge ≈ Skill, time flies | Optimal state |
+| State      | Symptoms                                   | Root Cause         |
+| ---------- | ------------------------------------------ | ------------------ |
+| Distracted | Multiple programs running, attention split | Lack of clarity    |
+| Anxious    | Overwhelmed by goals, paralyzed            | Challenge >> Skill |
+| Bored      | Repetitive work, self-centered thoughts    | Challenge << Skill |
+| Flow       | Challenge ≈ Skill, time flies              | Optimal state      |
 
 **Key insight**: Humans can process ~50 bits of conscious info/second. Every distraction reduces your potential. You have ~125 billion bits total in a lifetime—use them wisely.
 
@@ -48,6 +48,7 @@ Assess where you are on the focus spectrum:
 **Anti-Vision**: What you don't want, where you'll end up without change
 
 **Exercise** (15 minutes):
+
 1. Write out everything you DON'T want in your life—feel the discomfort
 2. Write out your ideal future—be petty, think big, ignore "rational" limits
 3. List all distractions standing between you and that future
@@ -72,6 +73,7 @@ Lever-Moving Tasks → Daily 1-3 priorities that move the needle
 ```
 
 **Example**:
+
 - 10-Year: Build a global digital education company
 - 1-Year: Launch MVP and get 1000 paid subscribers
 - 1-Month: Create minimum viable course product
@@ -85,6 +87,7 @@ Lever-Moving Tasks → Daily 1-3 priorities that move the needle
 **Why tutorials fail**: Endless consumption creates endless options and overwhelm. Most information goes to waste because you can't apply it.
 
 **How to use project-based learning**:
+
 1. Choose something to build that moves the needle toward your vision
 2. Brain dump everything you know about it
 3. Save 3-5 sources to emulate—study their structure
@@ -99,15 +102,18 @@ Lever-Moving Tasks → Daily 1-3 priorities that move the needle
 Structure your daily deep work block using the clarity-importance-urgency framework:
 
 **Before the session (2 min)**:
+
 - Review today's lever-moving task (from hierarchy)
 - Ask: "If I could only do one thing today, what would it be?"
 
 **During the session (50 min)**:
+
 - Single-task on that one thing
 - If blocked, break into smaller sub-goals
 - Apply challenge ≈ skill: if anxious, simplify; if bored, increase challenge
 
 **After the session (8 min)**:
+
 - Journal what you accomplished
 - Identify the next micro-step
 - Note any ideas that emerged ( Default Mode Network will generate insights during rest)
@@ -119,11 +125,13 @@ Structure your daily deep work block using the clarity-importance-urgency framew
 **Critical**: Your best ideas come during rest, not during work.
 
 **Daily structure** (the routine of successful creatives):
+
 - **Morning**: Creation, output, focus (deep work block)
 - **Afternoon**: Learning, ideas, socialization (fill your mind)
 - **Evening**: Journaling, planning, meditation (empty your mind)
 
 **Recovery activities** (not escapism):
+
 - Walking (especially without phone)
 - Reading fiction or philosophy
 - Daydreaming, imagining futures

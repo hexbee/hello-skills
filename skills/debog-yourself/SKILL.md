@@ -1,6 +1,6 @@
 ---
-name: De-bog Yourself
-description: 帮助用户识别和摆脱困住他们的心理困境。用于当用户感到卡住、无法前进、陷入僵局或面临选择困难时。提供诊断框架和具体策略，帮助用户理解自己处于哪种困境模式，并找到脱困的路径。
+name: "debog-yourself"
+description: "Help users identify and escape psychological traps that are holding them back. Use when user feels stuck, unable to progress, facing a deadlock, or experiencing decision paralysis. Provide diagnostic frameworks and specific strategies to help users understand which trap pattern they're in and find a path forward."
 ---
 
 # De-bog Yourself
@@ -11,11 +11,11 @@ description: 帮助用户识别和摆脱困住他们的心理困境。用于当�
 
 用户的困境通常属于以下三类之一：
 
-| 类型 | 特征 | 核心问题 |
-|------|------|----------|
-| **激活能量不足** | 用户想改变但无法行动 | "我知道该怎么做，但就是动不了" |
-| **糟糕的逃脱计划** | 用户在行动但方法错误 | "我在努力，但似乎在原地打转" |
-| **自己创造的困境** | 用户被困在想象中的问题里 | "我设定的规则让我无法前进" |
+| 类型               | 特征                     | 核心问题                       |
+| ------------------ | ------------------------ | ------------------------------ |
+| **激活能量不足**   | 用户想改变但无法行动     | "我知道该怎么做，但就是动不了" |
+| **糟糕的逃脱计划** | 用户在行动但方法错误     | "我在努力，但似乎在原地打转"   |
+| **自己创造的困境** | 用户被困在想象中的问题里 | "我设定的规则让我无法前进"     |
 
 ## 诊断流程
 
@@ -24,14 +24,17 @@ description: 帮助用户识别和摆脱困住他们的心理困境。用于当�
 用以下问题帮助用户自我定位：
 
 **激活能量不足的特征：**
+
 - "你知道自己需要做什么吗？"
 - "是什么阻止你开始？恐惧、疲惫还是其他？"
 
 **糟糕逃脱计划的特征：**
+
 - "你最近尝试了什么方法？"
 - "这些方法有什么共同点？"
 
 **自我困境的特征：**
+
 - "这些规则是谁设定的？你自己还是别人？"
 - "如果没有人评判你，你会怎么做？"
 
@@ -40,6 +43,7 @@ description: 帮助用户识别和摆脱困住他们的心理困境。用于当�
 根据类型，引导用户识别具体模式：
 
 **激活能量不足 - 常见模式：**
+
 - **Gutterballing**: 努力但方向错误（帮别人实现目标）
 - **Waiting for jackpot**: 等待完美选项，拒绝有代价的选择
 - **Declining the dragon**: 逃避需要勇气的事情
@@ -47,6 +51,7 @@ description: 帮助用户识别和摆脱困住他们的心理困境。用于当�
 - **Stroking the problem**: 反复思考问题但不做任何事
 
 **糟糕逃脱计划 - 常见模式：**
+
 - **Try harder fallacy**: 以为"更努力"就能解决问题
 - **Infinite effort illusion**: 以为自己有隐藏的努力储备
 - **Blaming God**: 抱怨无法改变的事物（如时间不够）
@@ -55,6 +60,7 @@ description: 帮助用户识别和摆脱困住他们的心理困境。用于当�
 - **Puppeteering**: 试图控制他人来解决问题
 
 **自我困境 - 常见模式：**
+
 - **Floor is lava**: 给自己设定虚假且严格的规则
 - **Super surveillance**: 过度关注世界问题，认为都是自己的责任
 - **Hedgehogging**: 拒绝被影响，即使应该听取意见
