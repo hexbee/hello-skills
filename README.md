@@ -49,6 +49,7 @@ Gemini CLI、OpenCode、Cursor、Claude Code、Claude、OpenAI Codex 等
 | deep-productivity | 深度工作生产力 mastery。通过三种工作类型框架（建设/维护/恢复）帮助用户建立可持续的深度工作习惯。仅需1小时/天即可产生有意义的目标进展。 | 本地 |
 | learning-first-principles | 基于学习第一性原理的认知框架。提供学习方法诊断、效率评估和优化建议。核心原理链：自学→归纳总结→自我输出→表达重构→逻辑理解→实践。 | 本地 |
 | retrospective-master | 专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analysis-Insight）引导用户进行结构化复盘。将经历转化为经验，将经验转化为能力。 | 本地 |
+| mungers-lattice | 多学科分析引擎，使用查理·芒格的格栅思维模型。通过数学、物理、生物学、心理学和经济学等跨学科视角剖析生活 和商业决策。 | 本地 |
 
 ---
 
