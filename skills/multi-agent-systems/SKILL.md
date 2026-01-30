@@ -210,6 +210,6 @@ Before adding multi-agent complexity:
 ## References
 
 - [Building multi-agent systems: when and how to use them](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)
-- [Building effective agents](https://claude.com/blog/building-effective-agents)
-- [Effective context engineering for AI agents](https://claude.com/blog/effective-context-engineering-for-ai-agents)
-
+- [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+- [Writing effective tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents)
