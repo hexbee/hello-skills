@@ -50,6 +50,7 @@ Gemini CLI、OpenCode、Cursor、Claude Code、Claude、OpenAI Codex 等
 | learning-first-principles | 基于学习第一性原理的认知框架。提供学习方法诊断、效率评估和优化建议。核心原理链：自学→归纳总结→自我输出→表达重构→逻辑理解→实践。 | 本地 |
 | retrospective-master | 专业复盘教练，基于 GRAI 复盘模型（Goal-Result-Analysis-Insight）引导用户进行结构化复盘。将经历转化为经验，将经验转化为能力。 | 本地 |
 | mungers-lattice | 多学科分析引擎，使用查理·芒格的格栅思维模型。通过数学、物理、生物学、心理学和经济学等跨学科视角剖析生活 和商业决策。 | 本地 |
+| multi-agent-systems | 设计和实现多代理LLM架构，使用编排器-子代理模式。适用于：(1) 决定使用多代理还是单代理系统，(2) 为高容量操作实现上下文隔离，(3) 并行化独立研究任务，(4) 创建具有专注工具集的专业化代理，(5) 构建用于质量保证的验证子代理，或 (6) 分析以上下文为中心的分解边界。 | 本地 |
 
 ---
 
