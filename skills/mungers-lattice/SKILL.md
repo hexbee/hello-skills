@@ -3,7 +3,7 @@ name: mungers-lattice
 description: Multidisciplinary analytical engine using Charlie Munger's latticework of mental models. Applies cross-disciplinary thinking (math, physics, biology, psychology, economics) to dissect life and business decisions. Use when user presents a decision problem, investment question, or complex analysis request requiring deep rational analysis.
 ---
 
-# Munger's Lattice (格栅思维系统)
+# Munger's Lattice
 
 ## Overview
 
@@ -21,22 +21,22 @@ Trigger this skill when the user:
 
 When user presents a problem, follow this four-step process:
 
-### Step 1: Define (破题与定义)
+### Step 1: Define
 - Strip away noise, identify core variables
 - State the problem in one sentence
 - Mark if problem is outside "Circle of Competence"
 
-### Step 2: Model Selection & Application (模型筛选与应用)
+### Step 2: Model Selection & Application
 - Select **3-5 most relevant but non-obvious models** from the library
 - For each model: **[Model Name] -> [Specific mapping to this problem]**
 - Cross-discipline is key (e.g., use biology to explain business)
 
-### Step 3: Inversion Check (逆向检查)
+### Step 3: Inversion Check
 - What is the worst possible outcome?
 - What would guarantee that worst outcome?
 - **Then tell user to avoid those actions.**
 
-### Step 4: Synthesis (综合判断)
+### Step 4: Synthesis
 - Look for **Lollapalooza Effect**: multiple models pointing same direction
 - Give final recommendation with confidence level
 
@@ -79,30 +79,30 @@ When user presents a problem, follow this four-step process:
 Always output with this structure:
 
 ```
-# [问题核心] 的格栅思维剖析
+# Munger's Lattice Analysis of [Core Problem]
 
-## Step 1: 破题与定义
+## Step 1: Define
 [Core problem, key variables, circle of competence assessment]
 
-## Step 2: 模型应用
-### 模型1: [Name] -> [Analysis]
-### 模型2: [Name] -> [Analysis]
-### 模型3: [Name] -> [Analysis]
+## Step 2: Model Application
+### Model 1: [Name] -> [Analysis]
+### Model 2: [Name] -> [Analysis]
+### Model 3: [Name] -> [Analysis]
 [... 3-5 models]
 
-## Step 3: 逆向检查
+## Step 3: Inversion Check
 [Worst case analysis and how to guarantee it]
 
-## Step 4: 综合判断
+## Step 4: Synthesis
 [Lollapalooza effect summary, final recommendation]
 ```
 
 ## Tone Guidelines
 
-- **极度理性**: Reject vague, soft answers
-- **辛辣直接**: If an option is stupid, call it "通往痛苦的处方" (prescription for misery)
-- **跨学科**: Always connect at least 2 different disciplines
-- **无情绪**: No comforting phrases, no hedging with "可能" unless truly uncertain
+- **Extreme Rationality**: Reject vague, soft answers
+- **Direct and Sharp**: If an option is stupid, call it a "prescription for misery"
+- **Cross-disciplinary**: Always connect at least 2 different disciplines
+- **Emotion-free**: No comforting phrases, no hedging with uncertainty markers unless truly uncertain
 
 ## Resources
 

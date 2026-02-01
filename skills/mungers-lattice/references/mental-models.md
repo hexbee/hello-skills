@@ -15,7 +15,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ## 1. Math & Logic Models
 
-### Compound Interest (复利效应)
+### Compound Interest
 
 **Definition**: Growth where earnings generate additional earnings over time.
 
@@ -33,7 +33,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Permutations & Combinations (排列组合)
+### Permutations & Combinations
 
 **Definition**: Counting all possible outcomes and their probabilities.
 
@@ -46,7 +46,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Fermat-Pascal System (费马帕斯卡系统)
+### Fermat-Pascal System
 
 **Definition**: Expected value calculation using probability theory.
 
@@ -59,7 +59,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Pareto Principle (80/20法则)
+### Pareto Principle (80/20)
 
 **Definition**: Roughly 80% of effects come from 20% of causes.
 
@@ -74,7 +74,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Redundancy/Margin of Safety (冗余备份)
+### Redundancy/Margin of Safety
 
 **Definition**: Building buffers to account for uncertainty and error.
 
@@ -90,7 +90,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ## 2. Psychology Models
 
-### Incentive-Caused Bias (激励机制引起的偏见)
+### Incentive-Caused Bias
 
 **Definition**: People predictably act in ways that serve their incentives, often unconsciously.
 
@@ -104,7 +104,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Social Proof (社会认同倾向)
+### Social Proof
 
 **Definition**: People do what they see others doing, especially in uncertainty.
 
@@ -117,7 +117,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Deprivation Super-Reaction (损失厌恶)
+### Deprivation Super-Reaction
 
 **Definition**: The pain of losing is psychologically twice as powerful as the pleasure of gaining.
 
@@ -130,7 +130,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Reciprocity (互惠倾向)
+### Reciprocity
 
 **Definition**: Strong psychological need to return favors.
 
@@ -143,7 +143,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Authority Bias (权威错误影响)
+### Authority Bias
 
 **Definition**: Following authority figures without independent verification.
 
@@ -156,7 +156,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Halo Effect (光环效应)
+### Halo Effect
 
 **Definition**: One positive trait causes overall positive judgment.
 
@@ -171,7 +171,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ## 3. Economics Models
 
-### Opportunity Cost (机会成本)
+### Opportunity Cost
 
 **Definition**: The value of the next best alternative you give up when making a choice.
 
@@ -184,7 +184,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Economic Moat (护城河)
+### Economic Moat
 
 **Definition**: Sustainable competitive advantage that protects profits from competition.
 
@@ -199,7 +199,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Economies of Scale (规模优势)
+### Economies of Scale
 
 **Definition**: Costs per unit decrease as volume increases.
 
@@ -212,7 +212,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Tragedy of the Commons (公地悲剧)
+### Tragedy of the Commons
 
 **Definition**: Shared resources get overused because individual incentives conflict with collective good.
 
@@ -227,7 +227,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ## 4. Hard Science Models
 
-### Critical Mass (临界质量)
+### Critical Mass
 
 **Definition**: Threshold where a chain reaction becomes self-sustaining.
 
@@ -240,7 +240,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Natural Selection (自然选择)
+### Natural Selection
 
 **Definition**: Survival of the fittest in competitive environments.
 
@@ -253,7 +253,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Second Law of Thermodynamics (熵增定律)
+### Second Law of Thermodynamics
 
 **Definition**: Entropy (disorder) always increases in closed systems.
 
@@ -266,7 +266,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Catalyst (催化剂)
+### Catalyst
 
 **Definition**: Factors that accelerate or slow down processes without being consumed.
 
@@ -281,7 +281,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ## 5. Core Thinking Tools
 
-### Inversion (逆向思维)
+### Inversion
 
 **Definition**: Work backward from the outcome you want to avoid.
 
@@ -296,7 +296,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Circle of Competence (能力圈)
+### Circle of Competence
 
 **Definition**: Areas where your knowledge gives you an advantage.
 
@@ -313,7 +313,7 @@ Detailed catalog of mental models for the Munger's Lattice skill.
 
 ---
 
-### Margin of Safety (安全边际)
+### Margin of Safety
 
 **Definition**: Build in buffers when making decisions under uncertainty.
 

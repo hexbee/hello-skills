@@ -1,140 +1,140 @@
-# 自己创造的困境：详细模式说明
+# Self-Created Bog: Detailed Pattern Explanations
 
-## Floor is Lava（地板是岩浆）
+## Floor is Lava
 
-**表现**：给自己设定虚假且严格的规则，然后觉得自己违反了这些规则。
+**Presentation**: Setting false and strict rules for yourself, then feeling like you've violated them.
 
-**特征**：
-- 设定"应该"和"不应该"
-- 规则来源不明（有时是幻想出来的）
-- 违反规则时感到强烈的内疚
+**Characteristics**:
+- Setting "shoulds" and "shouldn'ts"
+- Rule sources unclear (sometimes imagined)
+- Feeling intense guilt when violating rules
 
-**常见规则**：
-- "我应该像某人一样成功"
-- "我必须在某个年龄之前完成某事"
-- "我不能犯错"
+**Common Rules**:
+- "I should be as successful as someone else"
+- "I must achieve something by a certain age"
+- "I can't make mistakes"
 
-**来源**：
-- 从别人那里获得的期望
-- 社会比较产生的标准
-- 完全自己虚构的规则
+**Sources**:
+- Expectations received from others
+- Standards from social comparison
+- Rules entirely imagined by yourself
 
-**脱困策略**：
-- 问："谁设定这个规则？"
-- 问："如果完全不遵守，会有什么真实后果？"
-- 认识到规则可以改变或丢弃
-
----
-
-## Super Surveillance（超级监控）
-
-**表现**：感觉自己需要了解和解决世界上的所有问题。
-
-**特征**：
-- 持续关注新闻和负面信息
-- 感觉世界问题都是自己的责任
-- 过度关注但很少行动
-
-**危险**：
-- 世界问题无穷无尽
-- 关注 ≠ 解决
-- 消耗大量情绪能量
-
-**认知偏差**：
-- 责任感过度膨胀
-- 忽视个人影响力有限
-
-**脱困策略**：
-- 问："这个问题我能影响吗？"
-- 设定信息摄入限制
-- 专注于一个可以实际解决的问题
+**Escape Strategies**:
+- Ask: "Who set this rule?"
+- Ask: "What real consequences would there be if I didn't follow it at all?"
+- Recognize that rules can be changed or discarded
 
 ---
 
-## Hedgehogging（刺猬策略）
+## Super Surveillance
 
-**表现**：拒绝被他人影响，即使来自善意的建议。
+**Presentation**: Feeling like you need to understand and solve all the world's problems.
 
-**特征**：
-- "我知道我没事"
-- 忽视实际可行的解决方案
-- 把建议解读为攻击
+**Characteristics**:
+- Constantly following news and negative information
+- Feeling world problems are all your responsibility
+- Excessive focus but little action
 
-**与"不随波逐流"的区别**：
-- 健康的不随波逐流：基于价值观选择
-- Hedgehogging：盲目拒绝所有输入
+**Dangers**:
+- World problems are endless
+- Attention ≠ Solution
+- Consumes a lot of emotional energy
 
-**脱困策略**：
-- 问："我是否在防御性地拒绝？"
-- 区分"不同意"和"不理睬"
-- 考虑："如果我信任的人这么说呢？"
+**Cognitive Biases**:
+- Overinflated sense of responsibility
+- Ignoring limited personal influence
 
----
-
-## Personal Problems Growth Ray（个人问题放大射线）
-
-**表现**：自己的问题被放大，他人的问题被缩小。
-
-**特征**：
-- 觉得自己的问题"太特殊"无法解决
-- 觉得别人的问题"那么简单"
-- 无法看到问题的普遍性
-
-**认知错误**：
-- 独特性错觉：我的问题特殊
-- 他人解决问题看起来容易
-
-**脱困策略**：
-- 问："这个问题有多少人也经历过？"
-- 问："如果朋友有同样的问题，我会给什么建议？"
-- 认识到大多数问题都是普遍的
+**Escape Strategies**:
+- Ask: "Can I influence this problem?"
+- Set limits on information intake
+- Focus on one problem you can actually solve
 
 ---
 
-## Obsessing Over Tiny Predictors（纠结微小指标）
+## Hedgehogging
 
-**表现**：在无关紧要的细节上过度分析和纠结。
+**Presentation**: Refusing to be influenced by others, even from well-meaning advice.
 
-**特征**：
-- 担心细枝末节
-- 觉得这些细节决定成败
-- 忽视真正重要的因素
+**Characteristics**:
+- "I know I'm fine"
+- Ignoring actually feasible solutions
+- Interpreting advice as attacks
 
-**经典场景**：
-- 简历字体格式
-- 邮件签名
-- 会议发言顺序
+**Difference from Healthy Non-conformity**:
+- Healthy non-conformity: Choice based on values
+- Hedgehogging: Blindly rejecting all input
 
-**危险**：
-- 细节焦虑掩盖战略缺失
-- 消耗大量时间精力
-- 对实际结果影响微乎其微
-
-**脱困策略**：
-- 问："如果不做这个，最坏的结果是什么？"
-- 问："成功人士会花时间在这个上吗？"
-- 设定决策时间限制
+**Escape Strategies**:
+- Ask: "Am I defensively refusing?"
+- Distinguish "disagreeing" from "ignoring"
+- Consider: "What if someone I trusted said this?"
 
 ---
 
-## Impossible Satisfaction（不可能满足）
+## Personal Problems Growth Ray
 
-**表现**：相信"满意"是不可能的，生活就是受苦。
+**Presentation**: Your own problems are magnified, others' problems are minimized.
 
-**特征**：
-- 否定所有积极的解决方案
-- 认为"这就是生活"
-- 对建议回应："但是..."
+**Characteristics**:
+- Feeling your problems are "too special" to solve
+- Feeling others' problems are "so simple"
+- Unable to see the universality of problems
 
-**与经历真正困难的区别**：
-- 真正困难：外部环境的挑战
-- Impossible satisfaction：有原料但不做蛋糕
+**Cognitive Errors**:
+- Uniqueness illusion: My problems are special
+- Others' problem-solving looks easy
 
-**常见人群**：
-- 高教育、高收入、支持性关系
-- 拥有好原料但不做蛋糕
+**Escape Strategies**:
+- Ask: "How many other people have experienced this problem?"
+- Ask: "If a friend had the same problem, what advice would I give?"
+- Recognize that most problems are universal
 
-**脱困策略**：
-- 问："你面前有什么原材料？"
-- 问："如果满意是可能的，它会是什么样子？"
-- 接受"满意"是一个可实现的状态
+---
+
+## Obsessing Over Tiny Predictors
+
+**Presentation**: Over-analyzing and obsessing over irrelevant details.
+
+**Characteristics**:
+- Worrying about trivial details
+- Feeling these details determine success or failure
+- Ignoring truly important factors
+
+**Classic Scenarios**:
+- Resume font formatting
+- Email signatures
+- Meeting speaking order
+
+**Dangers**:
+- Detail anxiety masks strategic deficiency
+- Consumes lots of time and energy
+- Minimal impact on actual results
+
+**Escape Strategies**:
+- Ask: "What's the worst result if I don't do this?"
+- Ask: "Would successful people spend time on this?"
+- Set decision time limits
+
+---
+
+## Impossible Satisfaction
+
+**Presentation**: Believing "satisfaction" is impossible, life is suffering.
+
+**Characteristics**:
+- Denying all positive solutions
+- Believing "this is just life"
+- Responding to suggestions with "but..."
+
+**Difference from Experiencing Real Difficulties**:
+- Real difficulties: External environment challenges
+- Impossible satisfaction: Having ingredients but not making the cake
+
+**Common Population**:
+- High education, high income, supportive relationships
+- Having good ingredients but not making the cake
+
+**Escape Strategies**:
+- Ask: "What ingredients do you have in front of you?"
+- Ask: "If satisfaction were possible, what would it look like?"
+- Accept that "satisfaction" is an achievable state

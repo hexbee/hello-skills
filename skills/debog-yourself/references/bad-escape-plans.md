@@ -1,135 +1,135 @@
-# 糟糕的逃脱计划：详细模式说明
+# Bad Escape Plans: Detailed Pattern Explanations
 
-## Try Harder Fallacy（"再努力一点"谬误）
+## Try Harder Fallacy
 
-**表现**：用"更努力"作为解决问题的策略，但不改变方法。
+**Presentation**: Using "try harder" as a problem-solving strategy without changing methods.
 
-**特征**：
-- 失败后结论是"不够努力"
-- 不分析失败原因
-- 重复同样方法期待不同结果
+**Characteristics**:
+- After failure, conclusion is "not trying hard enough"
+- Not analyzing failure reasons
+- Repeating same methods expecting different results
 
-**经典场景**：
-- "我们需要在下一轮更努力地尝试！"
-- "我需要更加专注/更加渴望"
+**Classic Scenarios**:
+- "We need to try harder in the next round!"
+- "I need to be more focused/more eager"
 
-**认知错误**：
-- 假设失败是因为努力程度，而非方法
-- 忽视方法论的重要性
+**Cognitive Errors**:
+- Assuming failure is due to effort level, not method
+- Ignoring the importance of methodology
 
-**脱困策略**：
-- 问："我的方法有什么问题？"
-- 区分"努力"和"有效"
-- 寻求反馈，特别是失败模式的反馈
-
----
-
-## Infinite Effort Illusion（无限努力错觉）
-
-**表现**：相信自己有一笔"隐藏的努力储备"。
-
-**特征**：
-- "等我有时间了就会..."
-- "等我状态好了就会..."
-- 日常任务总是排满，但相信未来有更多时间
-
-**真相**：
-- 没有隐藏的努力储备
-- 所有努力现在已被分配
-- 如果某事持续未做 = 优先级不够
-
-**脱困策略**：
-- 问："我想用哪部分时间来换？"
-- 接受：如果真的想做，会从别的地方挤时间
-- 承认不想做 = 优先级不够高
+**Escape Strategies**:
+- Ask: "What's wrong with my method?"
+- Distinguish "effort" from "effectiveness"
+- Seek feedback, especially on failure patterns
 
 ---
 
-## Blaming God（责怪上帝）
+## Infinite Effort Illusion
 
-**表现**：把问题归咎于无法改变的事物。
+**Presentation**: Believing you have a hidden reserve of effort.
 
-**特征**：
-- 抱怨时间不够
-- 抱怨运气不好
-- 抱怨"世界不公平"
-- 沉浸在抱怨中但不行动
+**Characteristics**:
+- "When I have time, I will..."
+- "When I'm in a better state, I will..."
+- Daily tasks always full, but believing there's more time in the future
 
-**经典场景**：
-- "如果一天有25小时..."
-- "如果我有...就会成功"
+**Truth**:
+- No hidden effort reserve
+- All effort is already allocated now
+- If something remains undone = priority not high enough
 
-**认知错误**：
-- 抱怨 ≠ 解决问题
-- 即使上帝存在，抱怨也不能改变什么
-
-**脱困策略**：
-- 问："在现有条件下，我能做什么？"
-- 接受无法改变的事物
-- 专注于可控因素
+**Escape Strategies**:
+- Ask: "Which part of my time am I willing to trade?"
+- Accept: If you really want to do it, you'll make time from elsewhere
+- Admit not wanting to do it = priority not high enough
 
 ---
 
-## Diploma vs Toothbrushing Problems（毕业问题 vs 刷牙问题）
+## Blaming God
 
-**表现**：误判问题性质，导致策略错误。
+**Presentation**: Attributing problems to things that cannot be changed.
 
-**Diploma问题**（一次性解决）：
-- 完成就结束
-- 例如：拿到学位、完成项目
+**Characteristics**:
+- Complaining about not having enough time
+- Complaining about bad luck
+- Complaining "the world isn't fair"
+- Immersed in complaining but not acting
 
-**Toothbrushing问题**（持续维护）：
-- 需要一辈子持续做
-- 例如：保持健康、维护关系、情绪管理
+**Classic Scenarios**:
+- "If only there were 25 hours in a day..."
+- "If I had..., I would succeed"
 
-**危险**：
-- 把toothbrushing问题误认为diploma问题
-- 期望"一劳永逸"
-- 放弃已完成的假象
+**Cognitive Errors**:
+- Complaining ≠ Problem solving
+- Even if God exists, complaining changes nothing
 
-**脱困策略**：
-- 问："这个问题需要我一辈子做，还是做一次？"
-- 接受某些事情需要持续努力
-- 建立可持续的日常实践
-
----
-
-## Fantastical Metamorphosis（奇幻变形）
-
-**表现**：相信未来自己会自然变成不同的人。
-
-**特征**：
-- "将来我会喜欢这个"
-- "以后我就会有动力"
-- "等时机成熟"
-
-**真相**：
-- 不会一觉醒来变成不同的人
-- 改变需要现在行动
-- 偏好很难自动改变
-
-**脱困策略**：
-- 问："如果今天必须开始，我会怎么做？"
-- 接受改变是渐进的
-- 从小步骤开始
+**Escape Strategies**:
+- Ask: "What can I do under current conditions?"
+- Accept what cannot be changed
+- Focus on controllable factors
 
 ---
 
-## Puppeteering（操控木偶）
+## Diploma vs Toothbrushing Problems
 
-**表现**：试图通过控制他人来解决问题。
+**Presentation**: Misjudging problem nature, leading to wrong strategies.
 
-**特征**：
-- "如果他能...我就能..."
-- 专注于改变他人
-- 忽视自己的能动性
+**Diploma Problems** (one-time resolution):
+- Complete and it's done
+- Examples: Getting a degree, completing a project
 
-**真相**：
-- 他人和你一样难改变
-- 你无法控制他人的行为
-- 即使他人改变，你的问题可能还在
+**Toothbrushing Problems** (ongoing maintenance):
+- Need to do continuously for life
+- Examples: Maintaining health, relationships, emotional management
 
-**脱困策略**：
-- 问："如果对方完全不改变，我能做什么？"
-- 专注于自己的可控领域
-- 接受他人有自己的人生剧本
+**Dangers**:
+- Mistaking toothbrushing problems for diploma problems
+- Expecting "one-time effort solves all"
+- Abandoning the illusion of completion
+
+**Escape Strategies**:
+- Ask: "Does this problem need to be done for life, or once?"
+- Accept that some things require continuous effort
+- Build sustainable daily practices
+
+---
+
+## Fantastical Metamorphosis
+
+**Presentation**: Believing your future self will naturally become a different person.
+
+**Characteristics**:
+- "I'll like this in the future"
+- "I'll have motivation later"
+- "Wait until the timing is right"
+
+**Truth**:
+- Won't wake up a different person
+- Change requires action now
+- Preferences don't change automatically
+
+**Escape Strategies**:
+- Ask: "If I had to start today, how would I do it?"
+- Accept that change is gradual
+- Start with small steps
+
+---
+
+## Puppeteering
+
+**Presentation**: Trying to solve problems by controlling others.
+
+**Characteristics**:
+- "If he can..., then I can..."
+- Focusing on changing others
+- Ignoring your own agency
+
+**Truth**:
+- Others are as hard to change as you
+- You cannot control others' behavior
+- Even if others change, your problem may remain
+
+**Escape Strategies**:
+- Ask: "If the other person completely refuses to change, what can I do?"
+- Focus on your controllable domain
+- Accept that others have their own life scripts

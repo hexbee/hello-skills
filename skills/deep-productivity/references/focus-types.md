@@ -7,7 +7,7 @@
 **Characteristics**:
 - High cognitive load
 - Deep concentration required
--产出 tangible results (product, service, content, skill)
+- Produce tangible results (product, service, content, skill)
 - Typically 1-4 hour blocks max (cognitive fatigue sets in)
 
 **Examples**:

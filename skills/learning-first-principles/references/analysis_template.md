@@ -1,77 +1,77 @@
-# 学习行为分析模板
+# Learning Behavior Analysis Template
 
-## 输入结构
+## Input Structure
 
 ```json
 {
-  "学习内容": "用户在学什么",
-  "当前方法": "如何学习",
-  "时间投入": "每周小时数",
-  "困惑/目标": "遇到的问题或期望"
+  "learning_content": "What the user is learning",
+  "current_method": "How they learn",
+  "time_investment": "Hours per week",
+  "confusion_goals": "Problems encountered or expectations"
 }
 ```
 
-## 分析维度
+## Analysis Dimensions
 
-### A. 自学驱动性检查
+### A. Self-learning Drive Check
 
-| 问题 | 回答类型 |
-|-----|---------|
-| 学习目标是谁设定的？ | 外部（培训课表）/ 自主 |
-| 遇到困难时第一反应？ | 找人问 / 自己查 |
-| 学习动力来源？ | 考试压力 / 好奇心 |
+| Question | Answer Types |
+|----------|--------------|
+| Who set the learning goal? | External (training curriculum) / Self-directed |
+| First reaction when encountering difficulty? | Ask others / Figure out myself |
+| Source of learning motivation? | Exam pressure / Curiosity |
 
-### B. 归纳总结性检查
+### B. Induction & Summary Check
 
-| 问题 | 回答类型 |
-|-----|---------|
-| 学完能不看资料复述核心吗？ | 不能 / 能 |
-| 是否在整理知识点的联系？ | 只抄笔记 / 在建框架 |
-| 学的东西能迁移到其他领域吗？ | 不能 / 能 |
+| Question | Answer Types |
+|----------|--------------|
+| Can you restate the core without looking at materials after learning? | No / Yes |
+| Are you organizing connections between knowledge points? | Just copying notes / Building frameworks |
+| Can learned content be transferred to other fields? | No / Yes |
 
-### C. 自我输出性检查
+### C. Self-output Check
 
-| 问题 | 回答类型 |
-|-----|---------|
-| 做不做学习笔记？ | 抄PPT / 自己写 |
-| 学完会不会讲给别人听？ | 不 / 会 |
-| 是否在用自己的话重新表述？ | 原文摘抄 / 重新组织 |
+| Question | Answer Types |
+|----------|--------------|
+| Do you take study notes? | Copy PPT / Write in my own words |
+| Will you explain to others after learning? | No / Yes |
+| Are you restating in your own words? | Copying original text / Reorganizing |
 
-### D. 表达重构性检查
+### D. Expression Restructuring Check
 
-| 问题 | 回答类型 |
-|-----|---------|
-| 能用不同方式解释同一个概念吗？ | 不能 / 能 |
-| 是否尝试过把知识画成图/写成故事？ | 没有 / 有 |
-| 能否发现知识之间的矛盾/联系？ | 不能 / 能 |
+| Question | Answer Types |
+|----------|--------------|
+| Can you explain the same concept in different ways? | No / Yes |
+| Have you tried drawing knowledge as diagrams/stories? | No / Yes |
+| Can you discover contradictions/connections between knowledge? | No / Yes |
 
-### E. 逻辑驱动性检查
+### E. Logic-driven Check
 
-| 问题 | 回答类型 |
-|-----|---------|
-| 问"为什么"能答出来吗？ | 不会 / 能 |
-| 是否在套用步骤不知原理？ | 是 / 不是 |
-| 能预测学完能做什么吗？ | 不知道 / 知道 |
+| Question | Answer Types |
+|----------|--------------|
+| Can you answer when asked "why"? | No / Yes |
+| Are you applying steps without understanding principles? | Yes / No |
+| Can you predict what you can do after learning? | Don't know / Know |
 
-### F. 实践验证性检查
+### F. Practice Verification Check
 
-| 问题 | 回答类型 |
-|-----|---------|
-| 学完是否立即用过？ | 没有 / 有 |
-| 能否设计小实验验证理解？ | 不能 / 能 |
-| 是否在真实场景中用过？ | 没有 / 有 |
+| Question | Answer Types |
+|----------|--------------|
+| Did you use what you learned immediately after? | No / Yes |
+| Can you design small experiments to verify understanding? | No / Yes |
+| Have you used it in real scenarios? | No / Yes |
 
-## 评分标准
+## Scoring Criteria
 
-每个维度：
-- 正面回答 = 2分
-- 中性 = 1分
-- 负面 = 0分
+Each dimension:
+- Positive answer = 2 points
+- Neutral = 1 point
+- Negative = 0 points
 
-总分 = 12分（满分）
+Total score = 12 points (max)
 
-| 分数段 | 评价 | 建议重点 |
-|-------|-----|---------|
-| 0-4 | 被动学习模式 | 重新思考学习目标 |
-| 5-8 | 有意识但未内化 | 增加输出和重构 |
-| 9-12 | 第一性原理驱动 | 强化实践验证 |
+| Score Range | Assessment | Suggested Focus |
+|-------------|------------|-----------------|
+| 0-4 | Passive learning mode | Rethink learning goals |
+| 5-8 | Conscious but not internalized | Increase output and restructuring |
+| 9-12 | First principles driven | Strengthen practice verification |

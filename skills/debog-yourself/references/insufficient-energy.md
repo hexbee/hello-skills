@@ -1,95 +1,95 @@
-# 激活能量不足：详细模式说明
+# Insufficient Activation Energy: Detailed Pattern Explanations
 
-## Gutterballing（滚球偏离）
+## Gutterballing
 
-**表现**：努力工作，但方向偏离了自己的目标。
+**Presentation**: Working hard, but direction deviates from your own goals.
 
-**特征**：
-- 为别人的目标奋斗
-- 获得他人认可但内心空虚
-- 感觉自己"选错了方向"
+**Characteristics**:
+- Fighting for other people's goals
+- Getting recognition from others but feeling empty inside
+- Feeling like you "chose the wrong direction"
 
-**诊断问题**：
-- "这个项目成功时，谁最受益？"
-- "你最近的一次'成功'让你感觉如何？"
+**Diagnostic Questions**:
+- "Who benefits most when this project succeeds?"
+- "How does your recent 'success' make you feel?"
 
-**脱困策略**：
-- 识别当前努力服务的是谁的目标
-- 问自己："如果完全没有外人认可，我还想做吗？"
-
----
-
-## Waiting for Jackpot（等待大奖）
-
-**表现**：拒绝任何有代价的选择，只接受"完美"选项。
-
-**特征**：
-- 觉得每个选项都有"问题"
-- 等待一个能同时满足所有条件的选项
-- 实际行动几乎为零
-
-**脱困策略**：
-- 接受"任何选择都比困住强"
-- 问："最坏的情况是什么？你能承受吗？"
-- 认识到完美选项通常不存在
+**Escape Strategies**:
+- Identify whose goals your current effort serves
+- Ask yourself: "If there were zero external recognition, would I still want to do this?"
 
 ---
 
-## Declining the Dragon（拒绝恶龙）
+## Waiting for Jackpot
 
-**表现**：逃避需要勇气的事情，希望困难自动消失。
+**Presentation**: Rejecting any choices with costs, only accepting "perfect" options.
 
-**特征**：
-- 知道该怎么做但害怕后果
-- 希望未来不需要勇敢
-- 持续焦虑但不行动
+**Characteristics**:
+- Thinking every option has a "problem"
+- Waiting for an option that satisfies all conditions simultaneously
+- Almost zero actual action
 
-**关键认知**：
-- 勇敢的感觉很好，比逃避舒服
-- 每一次逃避都错过了体验勇敢的机会
-- 骑士寻找 dragons 来证明自己
-
-**脱困策略**：
-- 认识到勇敢不是没有恐惧，而是带着恐惧行动
-- 问自己："如果我勇敢一次，最坏的结果是什么？"
-- 期待行动后的满足感，而不是当下的舒适
+**Escape Strategies**:
+- Accept "any choice is better than being stuck"
+- Ask: "What's the worst case? Can you handle it?"
+- Recognize that perfect options usually don't exist
 
 ---
 
-## Mediocrity Trap（平庸陷阱）
+## Declining the Dragon
 
-**表现**：现状"够糟但不够糟"，缺乏改变的动机。
+**Presentation**: Avoiding things that require courage, hoping difficulties will disappear on their own.
 
-**特征**：
-- 持续轻度不满但不强烈到要改变
-- "再忍忍吧"成为常态
-- 失去的时间和机会不被注意
+**Characteristics**:
+- Knowing what to do but fearing consequences
+- Hoping you won't need to be brave in the future
+- Persistent anxiety without action
 
-**危险**：
-- Terrible situations → 退出后变成骄傲的回忆
-- Mediocre situations → 变成"失去的岁月"
+**Key Insights**:
+- Courage feels good, better than avoidance
+- Every escape misses an opportunity to experience courage
+- Knights seek dragons to prove themselves
 
-**脱困策略**：
-- 计算维持现状的真正成本
-- 设定"底线"：什么情况触发必须改变
-- 接受"够好"可能需要让位于"更好"
+**Escape Strategies**:
+- Recognize that courage isn't the absence of fear, but acting despite fear
+- Ask yourself: "If I were brave once, what would be the worst outcome?"
+- Expect the satisfaction after action, not comfort in the moment
 
 ---
 
-## Stroking the Problem（抚摸问题）
+## Mediocrity Trap
 
-**表现**：反复思考问题但不采取行动。
+**Presentation**: Status quo is "bad enough but not bad enough," lacking motivation to change.
 
-**特征**：
-- 花费大量时间分析和讨论问题
-- 感觉思考=行动
-- 问题成为身份的一部分
+**Characteristics**:
+- Persistent mild dissatisfaction but not strong enough to change
+- "Just bear it a little longer" becomes the norm
+- Lost time and opportunities go unnoticed
 
-**识别信号**：
-- "我一直在想这个问题..."
-- 对问题了解的越来越多，但解决方案没有增加
+**Dangers**:
+- Terrible situations → After leaving, become proud memories
+- Mediocre situations → Become "lost years"
 
-**脱困策略**：
-- 区分"分析问题"和"解决问题"
-- 设定思考时限，然后必须行动
-- 问："这个思考会带来行动，还是只是延迟？"
+**Escape Strategies**:
+- Calculate the true cost of maintaining the status quo
+- Set a "bottom line": What conditions trigger must-change?
+- Accept that "good enough" may need to give way to "better"
+
+---
+
+## Stroking the Problem
+
+**Presentation**: Thinking about the problem repeatedly but not taking action.
+
+**Characteristics**:
+- Spending lots of time analyzing and discussing the problem
+- Feeling that thinking = action
+- Problem becomes part of identity
+
+**Recognition Signals**:
+- "I've been thinking about this problem..."
+- Knowing more and more about the problem, but solutions aren't increasing
+
+**Escape Strategies**:
+- Distinguish "analyzing the problem" from "solving the problem"
+- Set a time limit for thinking, then must act
+- Ask: "Will this thinking lead to action, or just delay?"

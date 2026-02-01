@@ -1,54 +1,54 @@
 #!/usr/bin/env python3
 """
-学习第一性原理分析器
-分析学习行为是否符合第一性原理
+Learning First Principles Analyzer
+Analyzes if learning behaviors align with first principles
 """
 
 import json
 import sys
 from typing import Dict, List, Tuple
 
-# 原理链
+# Principle Chain
 PRINCIPLE_CHAIN = [
-    ("学习观", "自学", "补课"),
-    ("方法论", "归纳总结", "耗时间"),
-    ("加工", "自我输出", "机械抄录"),
-    ("输出", "表达重构", "简单重复"),
-    ("表达", "逻辑", "形式"),
-    ("理解", "实践", "止于理论")
+    ("Learning View", "Self-learning", "Tutoring/External Input"),
+    ("Methodology", "Induction & Summary", "Time-consuming/Mechanical Repetition"),
+    ("Processing", "Self-output", "Mechanical Copying"),
+    ("Output", "Expression Restructuring", "Simple Repetition"),
+    ("Expression", "Logic-driven", "Form/Template"),
+    ("Understanding", "Practice", "Stopping at Theory")
 ]
 
-# 关键词模式匹配
+# Keyword Pattern Matching
 PATTERNS = {
-    "自学驱动性": {
-        "positive": ["自己学", "自主", "好奇心", "想学", "目标是", "为了"],
-        "negative": ["培训班", "老师教", "被逼", "不得不", "课表", "别人让"]
+    "Self-learning Drive": {
+        "positive": ["self-study", "autonomous", "curiosity", "want to learn", "goal is", "for the purpose of", "my own decision", "interested in"],
+        "negative": ["training class", "teacher teaches", "forced", "have to", "schedule", "others told me", "assigned", "required"]
     },
-    "归纳总结性": {
-        "positive": ["总结", "提炼", "规律", "框架", "核心", "本质"],
-        "negative": ["刷题", "重复", "背", "记", "耗时间", "没思考"]
+    "Induction & Summary": {
+        "positive": ["summarize", "extract", "patterns", "framework", "core", "essence", "key points", "underlying logic"],
+        "negative": ["practice problems", "repeat", "memorize", "remember", "time-wasting", "no thinking", "rote learning", "just reading"]
     },
-    "自我输出性": {
-        "positive": ["讲出来", "写出来", "输出", "分享", "教别人", "自己的话"],
-        "negative": ["抄笔记", "复制", "摘抄", "记录"]
+    "Self-output": {
+        "positive": ["explain", "write out", "output", "share", "teach others", "my own words", "in my own words", "summarize myself"],
+        "negative": ["copy notes", "copy", "extract", "record", "transcribe", "just write down"]
     },
-    "表达重构性": {
-        "positive": ["重新组织", "换个角度", "画图", "类比", "重组"],
-        "negative": ["原文", "原话", "照搬", "一样"]
+    "Expression Restructuring": {
+        "positive": ["reorganize", "different angle", "diagram", "analogy", "restructure", "reframe", "different perspective", "simplify"],
+        "negative": ["original text", "original words", "copy directly", "same", "verbatim", "word for word"]
     },
-    "逻辑驱动性": {
-        "positive": ["为什么", "原理", "因果", "理解", "底层"],
-        "negative": ["套用", "步骤", "模板", "照做", "不知道"]
+    "Logic-driven": {
+        "positive": ["why", "principle", "cause and effect", "understand", "underlying", "reasoning", "logic", "because"],
+        "negative": ["apply template", "steps", "template", "follow blindly", "don't know", "just do it", "without understanding"]
     },
-    "实践验证性": {
-        "positive": ["用", "实践", "做", "验证", "实验", "项目"],
-        "negative": ["学完", "看懂", "理论上", "以后"]
+    "Practice Verification": {
+        "positive": ["use", "practice", "do", "verify", "experiment", "project", "apply", "build", "create"],
+        "negative": ["finished learning", "understood", "theoretically", "someday", "plan to", "will do later"]
     }
 }
 
 
 def analyze_text(text: str) -> Dict[str, Tuple[int, List[str]]]:
-    """分析文本，返回各维度得分和匹配关键词"""
+    """Analyze text, return scores and matched keywords for each dimension"""
     text = text.lower()
     results = {}
 
@@ -69,106 +69,106 @@ def analyze_text(text: str) -> Dict[str, Tuple[int, List[str]]]:
 
 
 def generate_diagnosis(analysis: Dict) -> List[str]:
-    """生成问题诊断"""
+    """Generate problem diagnosis"""
     diagnosis = []
 
     for dim, (score, _) in analysis.items():
         if score == 0:
             for principle, positive, negative in PRINCIPLE_CHAIN:
                 if dim in principle or principle in dim:
-                    diagnosis.append(f"- {dim}: 处于{negative}模式，而非{positive}")
+                    diagnosis.append(f"- {dim}: In {negative} mode, instead of {positive}")
                     break
 
     return diagnosis
 
 
 def generate_actions(analysis: Dict) -> List[str]:
-    """生成改进建议"""
+    """Generate improvement suggestions"""
     actions = []
 
     dimension_actions = {
-        "自学驱动性": "设定一个自主的学习目标，而非跟随外部课程表",
-        "归纳总结性": "学完后花10分钟提炼3个核心要点，而非继续刷题",
-        "自我输出性": "尝试用自己的话复述，而非摘抄教材原文",
-        "表达重构性": "用一个类比或故事重新解释这个概念",
-        "逻辑驱动性": "问自己三个为什么，追溯到底层原理",
-        "实践验证性": "设计一个最小实验，用实践验证理解"
+        "Self-learning Drive": "Set an autonomous learning goal instead of following external curriculum",
+        "Induction & Summary": "Spend 10 minutes extracting 3 core points after learning, instead of continuing to drill",
+        "Self-output": "Try to restate in your own words instead of copying from textbook",
+        "Expression Restructuring": "Explain this concept using an analogy or story",
+        "Logic-driven": "Ask yourself three 'whys' to trace back to underlying principles",
+        "Practice Verification": "Design a minimal experiment to verify understanding through practice"
     }
 
     for dim, (score, _) in analysis.items():
         if score < 2:
-            actions.append(f"{dim}改进: {dimension_actions.get(dim, '反思当前方法')}")
+            actions.append(f"{dim} Improvement: {dimension_actions.get(dim, 'Reflect on current method')}")
 
-    return actions[:3]  # 最多3个行动
+    return actions[:3]  # Maximum 3 actions
 
 
 def calculate_efficiency(analysis: Dict, time_hours: float) -> Dict:
-    """评估效率"""
+    """Evaluate efficiency"""
     total = sum(score for score, _ in analysis.values())
     max_score = len(analysis) * 2
 
     if total <= 4:
-        current_roi = "低"
-        improved_roi = "高"
-        reason = "被动学习模式，遗忘率高，迁移性差"
+        current_roi = "Low"
+        improved_roi = "High"
+        reason = "Passive learning mode, high forgetting rate, poor transferability"
     elif total <= 8:
-        current_roi = "中"
-        improved_roi = "高"
-        reason = "有意识但未内化，输出和重构不足"
+        current_roi = "Medium"
+        improved_roi = "High"
+        reason = "Conscious but not internalized, insufficient output and restructuring"
     else:
-        current_roi = "高"
-        improved_roi = "高"
-        reason = "第一性原理驱动，持续实践验证"
+        current_roi = "High"
+        improved_roi = "High"
+        reason = "First principles driven, continuous practice verification"
 
     return {
         "current_score": f"{total}/{max_score}",
         "current_roi": current_roi,
         "improved_roi": improved_roi,
         "reason": reason,
-        "time_recommendation": f"当前{time_hours}小时/周，建议: {time_hours * 0.7:.1f}小时学习 + {time_hours * 0.3:.1f}小时输出实践"
+        "time_recommendation": f"Current: {time_hours} hours/week, Recommended: {time_hours * 0.7:.1f} hours learning + {time_hours * 0.3:.1f} hours output practice"
     }
 
 
 def analyze_learning(input_data: str) -> str:
-    """主分析函数"""
-    # 尝试解析JSON
+    """Main analysis function"""
+    # Try to parse JSON
     try:
         data = json.loads(input_data)
-        text = f"{data.get('学习内容', '')} {data.get('当前方法', '')} {data.get('困惑', '')}"
-        time_hours = float(data.get('时间投入', 1))
+        text = f"{data.get('Learning Content', '')} {data.get('Current Method', '')} {data.get('Confusion', '')}"
+        time_hours = float(data.get('Time Investment', 1))
     except json.JSONDecodeError:
-        # 直接分析文本
+        # Direct text analysis
         text = input_data
         time_hours = 1
 
-    # 分析
+    # Analyze
     analysis = analyze_text(text)
     diagnosis = generate_diagnosis(analysis)
     actions = generate_actions(analysis)
     efficiency = calculate_efficiency(analysis, time_hours)
 
-    # 构建输出
+    # Build output
     output = []
-    output.append("## 学习第一性原理分析报告\n")
+    output.append("## Learning First Principles Analysis Report\n")
 
-    output.append("### 1. 现状诊断")
+    output.append("### 1. Current Status Diagnosis")
     if diagnosis:
         output.extend(diagnosis)
     else:
-        output.append("- 未发现明显违背第一性原理的模式")
+        output.append("- No obvious patterns violating first principles detected")
 
-    output.append("\n### 2. 改进建议")
+    output.append("\n### 2. Improvement Suggestions")
     for i, action in enumerate(actions, 1):
         output.append(f"{i}. {action}")
 
-    output.append("\n### 3. 效率评估")
-    output.append(f"- 当前得分: {efficiency['current_score']}")
-    output.append(f"- 当前ROI: {efficiency['current_roi']}")
-    output.append(f"- 优化后ROI: {efficiency['improved_roi']}")
-    output.append(f"- 原因: {efficiency['reason']}")
-    output.append(f"- 调整建议: {efficiency['time_recommendation']}")
+    output.append("\n### 3. Efficiency Assessment")
+    output.append(f"- Current Score: {efficiency['current_score']}")
+    output.append(f"- Current ROI: {efficiency['current_roi']}")
+    output.append(f"- Improved ROI: {efficiency['improved_roi']}")
+    output.append(f"- Reason: {efficiency['reason']}")
+    output.append(f"- Adjustment Recommendation: {efficiency['time_recommendation']}")
 
-    output.append("\n### 4. 原理链对照")
+    output.append("\n### 4. Principle Chain Comparison")
     for dim, (score, _) in analysis.items():
         for principle, positive, negative in PRINCIPLE_CHAIN:
             if dim in principle or principle in dim:
@@ -184,5 +184,5 @@ if __name__ == "__main__":
         result = analyze_learning(sys.argv[1])
         print(result)
     else:
-        print("Usage: python analyze.py '<学习描述>'")
-        print("Or: python analyze.py '<json数据>'")
+        print("Usage: python analyze.py '<learning description>'")
+        print("Or: python analyze.py '<json data>'")
