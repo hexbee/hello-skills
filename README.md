@@ -1,4 +1,4 @@
-﻿# Hello Skills
+# Hello Skills
 
 A curated collection of reusable agent skills for the [Agent Skills ecosystem](https://agentskills.io).
 
@@ -27,6 +27,7 @@ This repository currently includes the following skills:
 - `multi-agent-systems`: Design orchestrator-subagent LLM architectures.
 - `mungers-lattice`: Multidisciplinary decision analysis with Munger-style mental models.
 - `retrospective-master`: Structured retrospective coaching using the GRAI method.
+- `saas-agent-toolkit`: Turn SaaS capabilities into agent-usable tool contracts with guardrails, approvals, and auditability.
 
 ## 3. Quick Start
 
