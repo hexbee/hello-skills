@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent-First Product Strategy"
+  short_description: "Redesign product strategy for agent-first markets"
+  default_prompt: "Reframe my AI product strategy from human-first assumptions to agent-first positioning, metrics, and execution."

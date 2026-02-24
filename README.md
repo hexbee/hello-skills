@@ -17,6 +17,7 @@ This makes skills easy to discover, reuse, and version across different agent ru
 
 This repository currently includes the following skills:
 
+- `agent-first-product-strategy`: Reframe AI product strategy from human-first assumptions to agent-first positioning, metrics, and execution.
 - `agent-teams-guide`: Guide for orchestrating and controlling Claude Code agent teams.
 - `cross-domain-thinking-toolbox`: 25 professional mental models for complex problem solving.
 - `debog-yourself`: Diagnose and escape psychological traps that block progress.
