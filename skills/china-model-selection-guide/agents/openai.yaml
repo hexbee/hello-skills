@@ -1,0 +1,3 @@
+interface:
+  display_name: "China Model Selection Guide"
+  short_description: "Pick the best-fit China model by task type"
