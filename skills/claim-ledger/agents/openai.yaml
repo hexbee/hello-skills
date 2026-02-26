@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claim Ledger"
+  short_description: "Force claim-evidence-boundary checks before content generation"
+  default_prompt: "Build a Claim Ledger first (>=3 claims, >=2 evidence each, counterexample and boundary required), then generate publishable content only after gate checks pass."
