@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Teams Guide"
+  short_description: "Orchestrate and manage Claude Code agent teams"
+  default_prompt: "Help me create, control, and troubleshoot a Claude Code agent team, including delegation mode and parallel task coordination."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claim Ledger"
+  short_description: "Validate claims with evidence and boundaries"
+  default_prompt: "Build a Claim Ledger first: define claims, supporting evidence, counterexamples, and validity boundaries before generating publishable content."

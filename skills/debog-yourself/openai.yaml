@@ -1,0 +1,4 @@
+interface:
+  display_name: "De-bog Yourself"
+  short_description: "Diagnose and escape psychological stuck states"
+  default_prompt: "Help me diagnose which trap I am in (insufficient energy, bad escape plan, or self-created bog) and design specific steps to get unstuck."

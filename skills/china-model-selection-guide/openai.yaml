@@ -1,0 +1,4 @@
+interface:
+  display_name: "China Model Selection Guide"
+  short_description: "Choose best-fit China model by task profile"
+  default_prompt: "Select the best-fit China model (Doubao-Seed-2.0-Code, GLM-5, MiniMax-M2.5, or Kimi-K2.5) by input type, complexity, constraints, and delivery goals, and provide routing steps."

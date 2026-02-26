@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cross-Domain Thinking Toolbox"
+  short_description: "Apply 25 mental models to complex problems"
+  default_prompt: "Analyze my problem with the most relevant cross-domain mental models, compare insights, and synthesize a practical decision path."
