@@ -23,6 +23,7 @@ This repository currently includes the following skills:
 - `debog-yourself`: Diagnose and escape psychological traps that block progress.
 - `deep-productivity`: Deep-work productivity framework (Building, Maintenance, Recovery).
 - `ears-requirements`: Rewrite and validate requirements using EARS syntax.
+- `hn-top10`: Fetch the current top Hacker News stories as structured agent-friendly output.
 - `learning-first-principles`: Diagnose and optimize learning methods with first-principles thinking.
 - `multi-agent-systems`: Design orchestrator-subagent LLM architectures.
 - `mungers-lattice`: Multidisciplinary decision analysis with Munger-style mental models.
