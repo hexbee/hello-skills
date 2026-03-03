@@ -1,0 +1,4 @@
+interface:
+  display_name: "URL To Markdown"
+  short_description: "Convert a public URL into a reusable Markdown file"
+  default_prompt: "Convert this public URL into Markdown, save it as a timestamped .md file, and return the saved path plus key options used."

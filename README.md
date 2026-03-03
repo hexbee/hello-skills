@@ -29,6 +29,7 @@ This repository currently includes the following skills:
 - `mungers-lattice`: Multidisciplinary decision analysis with Munger-style mental models.
 - `retrospective-master`: Structured retrospective coaching using the GRAI method.
 - `saas-agent-toolkit`: Turn SaaS capabilities into agent-usable tool contracts with guardrails, approvals, and auditability.
+- `url-to-markdown`: Convert a public webpage URL into a reusable Markdown file with a bundled script and agent-friendly execution flow.
 
 ## 3. Quick Start
 
