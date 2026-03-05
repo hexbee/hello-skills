@@ -1,13 +1,18 @@
 ---
 name: url-to-markdown
-description: Convert a public webpage URL into Markdown using markdown.new and save it as a reusable `.md` file with the bundled script. Use this whenever the user wants to turn a public webpage, article, documentation page, blog post, release note, or reference URL into Markdown for reading, archiving, summarizing, extraction, RAG prep, or downstream agent reuse, even if they do not explicitly mention markdown, markdown.new, or saving a file.
+description: Convert a public webpage URL into Markdown and save it as a reusable `.md` file with the bundled script. Prefer `https://r.jina.ai/<url>` first, and only fallback to `https://markdown.new/` if `r.jina.ai` is unavailable. Use this whenever the user wants to turn a public webpage, article, documentation page, blog post, release note, or reference URL into Markdown for reading, archiving, summarizing, extraction, RAG prep, or downstream agent reuse, even if they do not explicitly mention markdown or saving a file.
 ---
 
 # URL To Markdown
 
 ## Overview
 
-Use this skill to fetch a public URL, convert it to Markdown through `https://markdown.new/`, and save the result as a timestamped Markdown file for later agent use.
+Use this skill to fetch a public URL, convert it to Markdown, and save the result as a timestamped Markdown file for later agent use.
+
+Conversion priority is fixed:
+
+1. `https://r.jina.ai/<url>` (primary)
+2. `https://markdown.new/` (fallback only when `r.jina.ai` is unavailable)
 
 This skill is execution-oriented. Prefer running the bundled script instead of manually recreating the workflow.
 
@@ -32,35 +37,47 @@ Do not use this skill for:
 Decide these inputs before running the script:
 
 - `url`: required; must be a public URL
-- `method`: optional; one of `auto`, `ai`, `browser`; default `auto`
-- `retain_images`: optional; default `false`
-- `transport`: optional; one of `auto`, `get`, `post`; default `auto`
+- `method`: optional; one of `auto`, `ai`, `browser`; default `auto`; used by `markdown.new` fallback
+- `retain_images`: optional; default `false`; used by `markdown.new` fallback
+- `transport`: optional; one of `auto`, `get`, `post`; default `auto`; used by `markdown.new` fallback
 - `timeout`: optional; default `30`
-- `output`: optional; preferred for agent workflows
+- `force_markdown_new`: optional; default `false`; when `true`, skip `r.jina.ai` and call `markdown.new` directly
+- `output`: default `./output/` (current directory + `output/`); if the user explicitly provides an output path in the prompt, use that path instead
 
 If the user does not specify these options, keep the defaults.
+
+Output path rule:
+
+- Always pass `--output` when invoking `url_to_md.py`.
+- If user prompt explicitly specifies an output path, use that exact path.
+- Otherwise use `--output "output/"` (relative to current working directory).
 
 ## Run The Script
 
 From the skill directory, run:
 
 ```bash
-python scripts/url_to_md.py "<url>" --output "<output_path>"
+python scripts/url_to_md.py "<url>" --output "output/"
 ```
 
 Common variants:
 
 ```bash
-python scripts/url_to_md.py "<url>" --output "outputs/page.md"
-python scripts/url_to_md.py "<url>" --method browser --retain-images --output "outputs/page.md"
-python scripts/url_to_md.py "<url>" --transport post --timeout 45 --output "outputs/page.md"
+python scripts/url_to_md.py "<url>" --output "output/"
+python scripts/url_to_md.py "<url>" --method browser --retain-images --output "output/"
+python scripts/url_to_md.py "<url>" --transport post --timeout 45 --output "output/"
+python scripts/url_to_md.py "<url>" --force-markdown-new --output "output/"
+python scripts/url_to_md.py "<url>" --output "<user_explicit_path>"
 ```
 
 Behavior notes:
 
+- The script always attempts `r.jina.ai` first.
+- If `--force-markdown-new` is set, the script skips `r.jina.ai` and uses `markdown.new` directly.
+- It falls back to `markdown.new` only when `r.jina.ai` is unavailable (for example timeout, network failure, 5xx, or rate limit).
+- Skill-level default output directory is `./output/`, and the invocation should always include `--output`.
 - If `--output` is a filename, the script appends a timestamp before the extension.
 - If `--output` is a directory, the script creates a slug-based filename with a timestamp.
-- If `--output` is omitted, the Markdown is printed to stdout. Use this only when the user clearly wants inline content instead of a saved file.
 
 ## Required Output Behavior
 
@@ -73,6 +90,7 @@ The summary should include:
 
 - source URL
 - whether the conversion succeeded
+- provider used: `r.jina.ai` or `markdown.new`
 - saved file path, if a file was written
 - key options used if non-default: `method`, `retain_images`, `transport`, `timeout`
 
@@ -83,6 +101,7 @@ Use this structure:
 ```text
 Source URL: <url>
 Status: success
+Provider: <r.jina.ai|markdown.new>
 Saved Markdown: <path>
 Options: method=<value>, retain_images=<value>, transport=<value>, timeout=<value>
 ```
@@ -98,6 +117,7 @@ If the script fails:
 - do not invent page content
 - mention likely cause when obvious: network issue, timeout, rate limit, unsupported page access
 
+If both providers fail, report which provider failed first and which provider failed last.
 If the service returns rate limiting, report that directly and avoid pretending a retry succeeded.
 
 ## Notes

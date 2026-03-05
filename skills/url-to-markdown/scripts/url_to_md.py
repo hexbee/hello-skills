@@ -21,16 +21,20 @@ except ImportError:  # pragma: no cover
 
 
 DEFAULT_TIMEOUT = 30
-SERVICE_URL = "https://markdown.new/"
-USER_AGENT = "url-to-md/1.0 (+https://markdown.new/)"
+JINA_PREFIX_URL = "https://r.jina.ai/"
+MARKDOWN_NEW_URL = "https://markdown.new/"
+USER_AGENT = "url-to-md/1.1 (+https://r.jina.ai/; fallback https://markdown.new/)"
 ConversionResult = collections.namedtuple(
     "ConversionResult",
-    ["markdown", "headers", "status", "transport", "service_url"],
+    ["markdown", "headers", "status", "transport", "service_url", "provider"],
 )
 
 
 class MarkdownServiceError(Exception):
-    pass
+    def __init__(self, message, service_name=None, status_code=None):
+        Exception.__init__(self, message)
+        self.service_name = service_name
+        self.status_code = status_code
 
 
 def _normalize_headers(headers):
@@ -40,7 +44,7 @@ def _normalize_headers(headers):
     return normalized
 
 
-def _decode_response(response):
+def _decode_response(response, service_name):
     headers = _normalize_headers(response.headers)
     content_type = headers.get("content-type", "")
     charset = "utf-8"
@@ -62,7 +66,7 @@ def _decode_response(response):
             return text, headers
         if isinstance(payload, dict):
             if payload.get("success") is False and payload.get("error"):
-                raise MarkdownServiceError(str(payload.get("error")))
+                raise MarkdownServiceError(str(payload.get("error")), service_name=service_name)
             if "content" in payload and payload.get("content") is not None:
                 return payload.get("content"), headers
         return text, headers
@@ -70,14 +74,25 @@ def _decode_response(response):
     return text, headers
 
 
-def _build_get_request(url, method, retain_images):
+def _build_jina_request(url):
+    service_url = JINA_PREFIX_URL + quote(url, safe=":/?&=#%")
+    return Request(
+        service_url,
+        headers={
+            "Accept": "text/markdown",
+            "User-Agent": USER_AGENT,
+        },
+    ), service_url
+
+
+def _build_markdown_new_get_request(url, method, retain_images):
     query = urlencode(
         {
             "method": method,
             "retain_images": "true" if retain_images else "false",
         }
     )
-    service_url = SERVICE_URL + quote(url, safe=":/")
+    service_url = MARKDOWN_NEW_URL + quote(url, safe=":/")
     if query:
         service_url += "?" + query
     return Request(
@@ -89,7 +104,7 @@ def _build_get_request(url, method, retain_images):
     ), service_url
 
 
-def _build_post_request(url, method, retain_images):
+def _build_markdown_new_post_request(url, method, retain_images):
     payload = json.dumps(
         {
             "url": url,
@@ -98,26 +113,27 @@ def _build_post_request(url, method, retain_images):
         }
     ).encode("utf-8")
     return Request(
-        SERVICE_URL,
+        MARKDOWN_NEW_URL,
         data=payload,
         headers={
             "Accept": "text/markdown",
             "Content-Type": "application/json",
             "User-Agent": USER_AGENT,
         },
-    ), SERVICE_URL
+    ), MARKDOWN_NEW_URL
 
 
-def _execute_request(request, transport, timeout, service_url):
+def _execute_request(request, transport, timeout, service_url, service_name, provider):
     try:
         response = urlopen(request, timeout=timeout)
-        markdown, headers = _decode_response(response)
+        markdown, headers = _decode_response(response, service_name)
         return ConversionResult(
             markdown=markdown,
             headers=headers,
             status=getattr(response, "status", response.getcode()),
             transport=transport,
             service_url=service_url,
+            provider=provider,
         )
     except HTTPError as exc:
         body = exc.read()
@@ -125,20 +141,92 @@ def _execute_request(request, transport, timeout, service_url):
             detail = body.decode("utf-8", "replace").strip()
         except Exception:
             detail = ""
-        message = "HTTP {0} from markdown.new".format(exc.code)
+        message = "HTTP {0} from {1}".format(exc.code, service_name)
         if exc.code == 429:
             message += " (rate limit exceeded)"
         if detail:
             message += ": " + detail
-        raise MarkdownServiceError(message)
+        raise MarkdownServiceError(
+            message,
+            service_name=service_name,
+            status_code=exc.code,
+        )
     except URLError as exc:
         reason = getattr(exc, "reason", exc)
-        raise MarkdownServiceError("Network error contacting markdown.new: {0}".format(reason))
+        raise MarkdownServiceError(
+            "Network error contacting {0}: {1}".format(service_name, reason),
+            service_name=service_name,
+        )
     except socket.timeout:
-        raise MarkdownServiceError("Request to markdown.new timed out after {0}s".format(timeout))
+        raise MarkdownServiceError(
+            "Request to {0} timed out after {1}s".format(service_name, timeout),
+            service_name=service_name,
+        )
 
 
-def fetch_markdown(url, method="auto", retain_images=False, timeout=DEFAULT_TIMEOUT, transport="auto"):
+def _is_service_unavailable(error):
+    if error.status_code is None:
+        return True
+    if error.status_code in (408, 425, 429):
+        return True
+    return error.status_code >= 500
+
+
+def _fetch_via_markdown_new(url, method, retain_images, timeout, transport):
+    if transport == "get":
+        request, service_url = _build_markdown_new_get_request(url, method, retain_images)
+        return _execute_request(
+            request,
+            "get",
+            timeout,
+            service_url,
+            service_name="markdown.new",
+            provider="markdown.new",
+        )
+
+    if transport == "post":
+        request, service_url = _build_markdown_new_post_request(url, method, retain_images)
+        return _execute_request(
+            request,
+            "post",
+            timeout,
+            service_url,
+            service_name="markdown.new",
+            provider="markdown.new",
+        )
+
+    request, service_url = _build_markdown_new_get_request(url, method, retain_images)
+    try:
+        return _execute_request(
+            request,
+            "get",
+            timeout,
+            service_url,
+            service_name="markdown.new",
+            provider="markdown.new",
+        )
+    except MarkdownServiceError as exc:
+        if exc.status_code == 429:
+            raise
+        request, service_url = _build_markdown_new_post_request(url, method, retain_images)
+        return _execute_request(
+            request,
+            "post",
+            timeout,
+            service_url,
+            service_name="markdown.new",
+            provider="markdown.new",
+        )
+
+
+def fetch_markdown(
+    url,
+    method="auto",
+    retain_images=False,
+    timeout=DEFAULT_TIMEOUT,
+    transport="auto",
+    force_markdown_new=False,
+):
     if not url:
         raise ValueError("url is required")
     if method not in ("auto", "ai", "browser"):
@@ -146,22 +234,30 @@ def fetch_markdown(url, method="auto", retain_images=False, timeout=DEFAULT_TIME
     if transport not in ("auto", "get", "post"):
         raise ValueError("transport must be one of: auto, get, post")
 
-    if transport == "get":
-        request, service_url = _build_get_request(url, method, retain_images)
-        return _execute_request(request, "get", timeout, service_url)
+    if force_markdown_new:
+        return _fetch_via_markdown_new(url, method, retain_images, timeout, transport)
 
-    if transport == "post":
-        request, service_url = _build_post_request(url, method, retain_images)
-        return _execute_request(request, "post", timeout, service_url)
-
-    request, service_url = _build_get_request(url, method, retain_images)
+    request, service_url = _build_jina_request(url)
     try:
-        return _execute_request(request, "get", timeout, service_url)
+        return _execute_request(
+            request,
+            "get",
+            timeout,
+            service_url,
+            service_name="r.jina.ai",
+            provider="r.jina.ai",
+        )
     except MarkdownServiceError as exc:
-        if "HTTP 429" in str(exc):
+        if not _is_service_unavailable(exc):
             raise
-        request, service_url = _build_post_request(url, method, retain_images)
-        return _execute_request(request, "post", timeout, service_url)
+        try:
+            return _fetch_via_markdown_new(url, method, retain_images, timeout, transport)
+        except MarkdownServiceError as fallback_exc:
+            raise MarkdownServiceError(
+                "{0}; fallback via markdown.new also failed: {1}".format(exc, fallback_exc),
+                service_name=fallback_exc.service_name,
+                status_code=fallback_exc.status_code,
+            )
 
 
 def _slugify_target(url):
@@ -237,20 +333,37 @@ def _print_headers(headers):
 
 
 def parse_args(argv=None):
+    description = (
+        "Convert a public URL to Markdown and optionally save it to a file.\n\n"
+        "Provider strategy:\n"
+        "  1) Try r.jina.ai first\n"
+        "  2) Fallback to markdown.new only when r.jina.ai is unavailable\n"
+        "  3) Use --force-markdown-new to skip r.jina.ai"
+    )
+    epilog = (
+        "Examples:\n"
+        "  python scripts/url_to_md.py \"https://www.stanford.edu/\"\n"
+        "  python scripts/url_to_md.py \"https://www.stanford.edu/\" --output \"outputs/stanford.md\"\n"
+        "  python scripts/url_to_md.py \"https://example.com\" --timeout 45 --show-headers\n"
+        "  python scripts/url_to_md.py \"https://example.com\" --method browser --transport post\n"
+        "  python scripts/url_to_md.py \"https://example.com\" --force-markdown-new\n"
+    )
     parser = argparse.ArgumentParser(
-        description="Convert a public URL to Markdown using markdown.new.",
+        description=description,
+        epilog=epilog,
+        formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument("url", help="Public URL to convert")
     parser.add_argument(
         "--method",
         choices=["auto", "ai", "browser"],
         default="auto",
-        help="Conversion method exposed by markdown.new (default: auto)",
+        help="Conversion method for markdown.new fallback (default: auto)",
     )
     parser.add_argument(
         "--retain-images",
         action="store_true",
-        help="Request Markdown that keeps image references",
+        help="Request Markdown that keeps image references (markdown.new fallback only)",
     )
     parser.add_argument(
         "--timeout",
@@ -262,7 +375,7 @@ def parse_args(argv=None):
         "--transport",
         choices=["auto", "get", "post"],
         default="auto",
-        help="How this client talks to markdown.new (default: auto)",
+        help="Transport used by markdown.new fallback (default: auto)",
     )
     parser.add_argument(
         "--output",
@@ -272,6 +385,11 @@ def parse_args(argv=None):
         "--show-headers",
         action="store_true",
         help="Print selected response headers to stderr",
+    )
+    parser.add_argument(
+        "--force-markdown-new",
+        action="store_true",
+        help="Skip r.jina.ai and force markdown.new directly",
     )
     return parser.parse_args(argv)
 
@@ -285,6 +403,7 @@ def main(argv=None):
             retain_images=args.retain_images,
             timeout=args.timeout,
             transport=args.transport,
+            force_markdown_new=args.force_markdown_new,
         )
     except (MarkdownServiceError, ValueError) as exc:
         print("error: {0}".format(exc), file=sys.stderr)
