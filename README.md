@@ -19,6 +19,8 @@ This repository currently includes the following skills:
 
 - `agent-first-product-strategy`: Reframe AI product strategy from human-first assumptions to agent-first positioning, metrics, and execution.
 - `agent-teams-guide`: Guide for orchestrating and controlling Claude Code agent teams.
+- `china-model-selection-guide`: Compare China LLMs with practical, scenario-based model selection guidance.
+- `claim-ledger`: Turn research claims into a verifiable Claim-Evidence-Boundary ledger.
 - `cross-domain-thinking-toolbox`: 25 professional mental models for complex problem solving.
 - `debog-yourself`: Diagnose and escape psychological traps that block progress.
 - `deep-productivity`: Deep-work productivity framework (Building, Maintenance, Recovery).
@@ -27,6 +29,7 @@ This repository currently includes the following skills:
 - `learning-first-principles`: Diagnose and optimize learning methods with first-principles thinking.
 - `multi-agent-systems`: Design orchestrator-subagent LLM architectures.
 - `mungers-lattice`: Multidisciplinary decision analysis with Munger-style mental models.
+- `research-content-router`: Route research-to-content workflows from research through synthesis to publishable output.
 - `retrospective-master`: Structured retrospective coaching using the GRAI method.
 - `saas-agent-toolkit`: Turn SaaS capabilities into agent-usable tool contracts with guardrails, approvals, and auditability.
 - `url-to-markdown`: Convert a public webpage URL into a reusable Markdown file with a bundled script and agent-friendly execution flow.
