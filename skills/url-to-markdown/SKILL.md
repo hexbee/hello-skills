@@ -36,7 +36,10 @@ Do not use this skill for:
 
 Decide these inputs before running the script:
 
-- `url`: required; must be a public URL
+- `url`: required (single URL mode); must be a public URL
+- `urls`: optional; multiple URLs for batch conversion (mutually exclusive with positional url)
+- `concurrency`: optional; number of parallel conversions (default `3`); used in batch mode
+- `output_dir`: optional; output directory for batch conversion; creates slug-based filenames
 - `method`: optional; one of `auto`, `ai`, `browser`; default `auto`; used by `markdown.new` fallback
 - `retain_images`: optional; default `false`; used by `markdown.new` fallback
 - `transport`: optional; one of `auto`, `get`, `post`; default `auto`; used by `markdown.new` fallback
@@ -68,6 +71,19 @@ python scripts/url_to_md.py "<url>" --method browser --retain-images --output "o
 python scripts/url_to_md.py "<url>" --transport post --timeout 45 --output "output/"
 python scripts/url_to_md.py "<url>" --force-markdown-new --output "output/"
 python scripts/url_to_md.py "<url>" --output "<user_explicit_path>"
+```
+
+Batch conversion:
+
+```bash
+# Batch convert multiple URLs with parallel processing (default concurrency=3)
+python scripts/url_to_md.py --urls "https://example.com" "https://example.org" "https://example.net" --output-dir "output/"
+
+# Batch with custom concurrency
+python scripts/url_to_md.py --urls "https://a.com" "https://b.com" "https://c.com" "https://d.com" "https://e.com" --concurrency 5 --output-dir "output/"
+
+# Single URL in batch mode
+python scripts/url_to_md.py --urls "https://example.com" --output-dir "output/"
 ```
 
 Behavior notes:

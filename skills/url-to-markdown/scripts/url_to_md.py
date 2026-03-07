@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 from __future__ import print_function
 
 import argparse
@@ -9,6 +9,7 @@ import os
 import re
 import socket
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 try:
     from urllib.error import HTTPError, URLError
@@ -308,7 +309,7 @@ def _write_output(path, content):
     directory = os.path.dirname(path)
     if directory and not os.path.exists(directory):
         os.makedirs(directory)
-    handle = open(path, "w")
+    handle = open(path, "w", encoding="utf-8")
     try:
         handle.write(content)
     finally:
@@ -332,6 +333,41 @@ def _print_headers(headers):
             print("{0}: {1}".format(key, headers[key]), file=sys.stderr)
 
 
+def _convert_single_url(args_tuple):
+    """Convert a single URL. Used by batch processing."""
+    url, method, retain_images, timeout, transport, force_markdown_new, output = args_tuple
+    try:
+        result = fetch_markdown(
+            url=url,
+            method=method,
+            retain_images=retain_images,
+            timeout=timeout,
+            transport=transport,
+            force_markdown_new=force_markdown_new,
+        )
+        output_path = None
+        if output:
+            output_path = build_output_path(output, url)
+            _write_output(output_path, result.markdown)
+        return {
+            "url": url,
+            "success": True,
+            "markdown": result.markdown,
+            "provider": result.provider,
+            "output_path": output_path,
+            "error": None,
+        }
+    except (MarkdownServiceError, ValueError) as exc:
+        return {
+            "url": url,
+            "success": False,
+            "markdown": None,
+            "provider": None,
+            "output_path": None,
+            "error": str(exc),
+        }
+
+
 def parse_args(argv=None):
     description = (
         "Convert a public URL to Markdown and optionally save it to a file.\n\n"
@@ -347,13 +383,33 @@ def parse_args(argv=None):
         "  python scripts/url_to_md.py \"https://example.com\" --timeout 45 --show-headers\n"
         "  python scripts/url_to_md.py \"https://example.com\" --method browser --transport post\n"
         "  python scripts/url_to_md.py \"https://example.com\" --force-markdown-new\n"
+        "\n"
+        "Batch conversion examples:\n"
+        "  python scripts/url_to_md.py --urls \"https://example.com\" \"https://example.org\" --output-dir \"output/\"\n"
+        "  python scripts/url_to_md.py --urls \"https://a.com\" \"https://b.com\" \"https://c.com\" --concurrency 5\n"
     )
     parser = argparse.ArgumentParser(
         description=description,
         epilog=epilog,
         formatter_class=argparse.RawTextHelpFormatter,
     )
-    parser.add_argument("url", help="Public URL to convert")
+    parser.add_argument("url", nargs="?", help="Public URL to convert")
+    parser.add_argument(
+        "--urls",
+        nargs="+",
+        metavar="URL",
+        help="Multiple URLs to convert in batch (mutually exclusive with positional url)",
+    )
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=3,
+        help="Number of parallel conversions for batch mode (default: 3)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        help="Output directory for batch conversion (creates slug-based filenames)",
+    )
     parser.add_argument(
         "--method",
         choices=["auto", "ai", "browser"],
@@ -396,6 +452,86 @@ def parse_args(argv=None):
 
 def main(argv=None):
     args = parse_args(argv)
+
+    # Determine URLs to process
+    if args.urls:
+        urls = args.urls
+    elif args.url:
+        urls = [args.url]
+    else:
+        print("error: either provide a positional url or use --urls", file=sys.stderr)
+        return 1
+
+    # Validate mutual exclusivity of output options
+    if args.output and args.output_dir:
+        print("error: cannot use both --output and --output-dir", file=sys.stderr)
+        return 1
+
+    # Batch mode
+    if len(urls) > 1 or args.urls or args.output_dir:
+        output_dir = args.output_dir or args.output
+        if not output_dir:
+            output_dir = "output"
+
+        # Ensure output directory exists
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        # Prepare arguments for each URL
+        task_args = [
+            (
+                url,
+                args.method,
+                args.retain_images,
+                args.timeout,
+                args.transport,
+                args.force_markdown_new,
+                output_dir,
+            )
+            for url in urls
+        ]
+
+        # Process URLs in parallel
+        results = []
+        with ThreadPoolExecutor(max_workers=args.concurrency) as executor:
+            futures = {executor.submit(_convert_single_url, arg): arg[0] for arg in task_args}
+            for future in as_completed(futures):
+                result = future.result()
+                results.append(result)
+
+        # Print results
+        success_count = 0
+        fail_count = 0
+        for result in sorted(results, key=lambda x: x["url"]):
+            if result["success"]:
+                success_count += 1
+                print(
+                    "SUCCESS: {url} -> {provider} -> {output}".format(
+                        url=result["url"],
+                        provider=result["provider"],
+                        output=result["output_path"] or "(stdout)",
+                    ),
+                    file=sys.stderr,
+                )
+            else:
+                fail_count += 1
+                print("FAILED: {url} -> {error}".format(url=result["url"], error=result["error"]), file=sys.stderr)
+
+        print("\nBatch complete: {success} succeeded, {failed} failed".format(
+            success=success_count, failed=fail_count), file=sys.stderr)
+
+        # Write combined markdown to stdout if no output directory
+        if not args.output_dir and not args.output:
+            for result in sorted(results, key=lambda x: x["url"]):
+                if result["success"] and result["markdown"]:
+                    sys.stdout.write("\n<!-- {url} -->\n\n".format(url=result["url"]))
+                    sys.stdout.write(result["markdown"])
+                    if not result["markdown"].endswith("\n"):
+                        sys.stdout.write("\n")
+
+        return 0 if fail_count == 0 else 1
+
+    # Single URL mode (backward compatible)
     try:
         result = fetch_markdown(
             url=args.url,
