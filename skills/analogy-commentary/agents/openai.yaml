@@ -1,0 +1,7 @@
+interface:
+  display_name: "Analogy Commentary"
+  short_description: "Map content into analogies and commentary."
+  default_prompt: "Use $analogy-commentary to map this content into a familiar analogy framework, explain where the analogy fits and breaks, and give me concise commentary angles."
+
+policy:
+  allow_implicit_invocation: true
