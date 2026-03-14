@@ -19,12 +19,14 @@ This repository currently includes the following skills:
 
 - `agent-first-product-strategy`: Reframe AI product strategy from human-first assumptions to agent-first positioning, metrics, and execution.
 - `agent-teams-guide`: Guide for orchestrating and controlling Claude Code agent teams.
+- `analogy-commentary`: Turn source content into a familiar analogy framework, then produce concise commentary angles and a short take.
 - `china-model-selection-guide`: Compare China LLMs with practical, scenario-based model selection guidance.
 - `claim-ledger`: Turn research claims into a verifiable Claim-Evidence-Boundary ledger.
 - `cross-domain-thinking-toolbox`: 25 professional mental models for complex problem solving.
 - `debog-yourself`: Diagnose and escape psychological traps that block progress.
 - `deep-productivity`: Deep-work productivity framework (Building, Maintenance, Recovery).
 - `ears-requirements`: Rewrite and validate requirements using EARS syntax.
+- `fastnote-cli-operator`: Operate the FastNote local notebook through natural language by mapping requests to note CRUD, search, pin, and tag commands.
 - `hn-top10`: Fetch the current top Hacker News stories as structured agent-friendly output.
 - `learning-first-principles`: Diagnose and optimize learning methods with first-principles thinking.
 - `multi-agent-systems`: Design orchestrator-subagent LLM architectures.
