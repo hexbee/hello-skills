@@ -100,6 +100,27 @@ def require_content(value: object) -> str:
     return value
 
 
+def resolve_content(
+    *,
+    content: str | None,
+    content_file: Path | None,
+    content_stdin: bool,
+) -> str:
+    sources = int(content is not None) + int(content_file is not None) + int(content_stdin)
+    if sources > 1:
+        raise CliUsageError("Use only one of --content, --content-file, or --content-stdin.")
+    if content_file is not None:
+        try:
+            return require_content(content_file.read_text(encoding="utf-8"))
+        except OSError as exc:
+            raise CliUsageError(f"Could not read content file '{content_file}': {exc.strerror or exc}") from exc
+    if content_stdin:
+        return require_content(sys.stdin.read())
+    if content is None:
+        return ""
+    return require_content(content)
+
+
 def normalize_tags(tags: Sequence[str]) -> list[str]:
     seen: set[str] = set()
     normalized: list[str] = []
@@ -411,14 +432,18 @@ def build_parser() -> argparse.ArgumentParser:
 
     create_parser = subparsers.add_parser("create", help="Create a note")
     create_parser.add_argument("--title", required=True)
-    create_parser.add_argument("--content", default="")
+    create_parser.add_argument("--content", default=None)
+    create_parser.add_argument("--content-file", type=Path, default=None)
+    create_parser.add_argument("--content-stdin", action="store_true")
     create_parser.add_argument("--tag", action="append", default=[])
     create_parser.add_argument("--pinned", type=parse_bool, default=False)
 
     update_parser = subparsers.add_parser("update", help="Update a note")
     update_parser.add_argument("id", type=int)
     update_parser.add_argument("--title", required=True)
-    update_parser.add_argument("--content", required=True)
+    update_parser.add_argument("--content", default=None)
+    update_parser.add_argument("--content-file", type=Path, default=None)
+    update_parser.add_argument("--content-stdin", action="store_true")
     update_parser.add_argument("--tag", action="append", default=[])
     update_parser.add_argument("--pinned", type=parse_bool, required=True)
 
@@ -454,21 +479,33 @@ def dispatch_command(connection: sqlite3.Connection, args: argparse.Namespace) -
         return {"ok": True, "note": note}
 
     if args.cli_command == "create":
+        content = resolve_content(
+            content=args.content,
+            content_file=args.content_file,
+            content_stdin=args.content_stdin,
+        )
         note = create_note(
             connection,
             title=args.title,
-            content=args.content,
+            content=content,
             tags=args.tag,
             is_pinned=args.pinned,
         )
         return {"ok": True, "note": note}
 
     if args.cli_command == "update":
+        if args.content is None and args.content_file is None and not args.content_stdin:
+            raise CliUsageError("the following arguments are required: --content, --content-file, or --content-stdin")
+        content = resolve_content(
+            content=args.content,
+            content_file=args.content_file,
+            content_stdin=args.content_stdin,
+        )
         note = update_note(
             connection,
             note_id=args.id,
             title=args.title,
-            content=args.content,
+            content=content,
             tags=args.tag,
             is_pinned=args.pinned,
         )

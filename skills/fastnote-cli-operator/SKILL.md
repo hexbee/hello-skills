@@ -28,6 +28,7 @@ Map user intent onto one of these commands:
 
 `list` returns note summaries to keep agent context small.
 `get` returns the full note, including `content`.
+For long or multi-line note bodies, prefer `--content-file` or `--content-stdin` over `--content`.
 
 ## Safety and decision rules
 
@@ -36,6 +37,7 @@ Map user intent onto one of these commands:
 - Only execute `delete` immediately when the user is explicit that no confirmation is needed, such as "delete note 12 now" or "remove 12, no need to confirm".
 - If the delete intent is not explicit enough, ask for confirmation before running it.
 - Preserve the CLI's strict boolean style: use `true` and `false`.
+- If the note body is long, contains multiple paragraphs, or includes Chinese long-form text, use `--content-file` or `--content-stdin` to avoid shell length, quoting, and newline issues.
 
 ## Execution
 
@@ -123,6 +125,14 @@ Action:
 python skills/fastnote-cli-operator/scripts/fastnote_cli.py create --title "sprint plan" --content "finalize API scope" --tag work --tag planning --pinned true
 ```
 
+**Example 1b**
+User: "Create a note from this long draft"
+Action:
+
+```bash
+python skills/fastnote-cli-operator/scripts/fastnote_cli.py create --title "draft" --content-file /absolute/path/to/draft.txt --pinned false
+```
+
 **Example 2**
 User: "Show pinned notes tagged work"
 Action:
@@ -145,6 +155,12 @@ Action:
 
 ```bash
 python skills/fastnote-cli-operator/scripts/fastnote_cli.py update 5 --title "Draft v2" --content "Updated body" --tag todo --tag urgent --pinned false
+```
+
+When the content comes from stdin:
+
+```bash
+python skills/fastnote-cli-operator/scripts/fastnote_cli.py update 5 --title "Draft v2" --content-stdin --tag todo --pinned false
 ```
 
 ## Implementation notes
