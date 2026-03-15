@@ -1,13 +1,13 @@
 ---
 name: hn-to-x-poster
-description: Use this when the user wants to review Hacker News top 30 stories, select software or AI related items, and automatically publish a short Chinese summary or thread to x.com or Twitter from an already logged-in browser session.
+description: Use this when the user wants to review Hacker News top 30 stories, select software or AI related items, and automatically publish a Chinese thread of at least 3 posts to x.com or Twitter from an already logged-in browser session.
 ---
 
 # HN to X Poster
 
 ## Overview
 
-Use this skill for a browser-driven workflow that reads the current Hacker News front page, filters the top 30 stories for software or AI relevance, compresses the signal into one short Chinese post or a short thread, and publishes it to `x.com`.
+Use this skill for a browser-driven workflow that reads the current Hacker News front page, filters the top 30 stories for software or AI relevance, compresses the signal into a Chinese thread, and publishes it to `x.com`.
 
 This skill is for direct execution, not just drafting. Default behavior is to post automatically if `x.com` is already logged in. If posting is blocked, fall back to a ready-to-send Chinese draft or thread and explain the blocker briefly.
 
@@ -71,7 +71,7 @@ If an item is borderline, prefer keeping it only when a technical audience would
 
 ### 4. Plan Post Structure
 
-Decide whether the output should be one post or a thread before writing.
+Decide the thread structure before writing.
 
 If the user explicitly specifies the number of posts in the thread:
 
@@ -81,37 +81,49 @@ If the user explicitly specifies the number of posts in the thread:
 
 If the user does not specify the number of posts:
 
-- recommend the number of posts based on readability first, not maximum compression
+- default to a thread of at least `3` posts
+- treat HN front-page signal as high-density by default; do not assume one post is enough
+- use a `total -> points -> takeaway` structure as the baseline shape
+- allow `4+` posts whenever that makes the thread clearer
+- do not optimize for the fewest posts; optimize for explaining the signal cleanly
 - split by natural content blocks instead of arbitrary equal lengths
-- prefer one post when a single post is still clear
-- allow recommending two posts when two posts would read noticeably better, even if one post could technically fit
-- use more than two posts only when the content has multiple distinct sections that would otherwise feel crowded or hard to scan
+- prefer adding another post over over-compressing one crowded post
 
 Default thread planning heuristics:
 
-- `1` post: one clear takeaway with a compact list of signals
-- `2` posts: one post for the strongest HN signals and one post for the synthesis or conclusion
-- `3+` posts: only when there are clearly separate clusters, such as infrastructure, AI tooling, and a final takeaway
+- `3` posts: the default minimum when the user did not specify a count
+- `4` posts: use when signals naturally separate into multiple clusters, such as AI, security/systems, languages/tools, and conclusion
+- `5+` posts: acceptable when needed to keep each post readable and specific
+- `1` or `2` posts: only use when the user explicitly asks for that count
 
-When writing a thread, give each post a distinct job. Typical structure:
+When writing a thread, give each post a distinct job. Typical default structure:
 
-- post 1: headline or strongest signals
-- post 2: secondary signals or supporting details
-- final post: conclusion, pattern, or takeaway
+- post 1: overall read on today's HN board, set the tone
+- post 2: first major cluster of signals
+- post 3: second major cluster plus closing takeaway
+
+If using more than 3 posts, keep the same principle:
+
+- opening post sets the frame
+- middle posts each cover one clear cluster
+- final post lands the synthesis, verdict, or forward-looking take
 
 ### 5. Build The Post
 
-Write the final Chinese content as either one post or a short thread that:
+Write the final Chinese content as a thread that:
 
 - sounds natural on X
-- highlights only the strongest 4 to 7 software or AI signals
+- highlights only the strongest 4 to 8 software or AI signals
 - compresses repeated themes instead of listing everything
-- ends with a light conclusion about the pattern when useful
+- ends with a clear conclusion about the pattern
 
 Default style:
 
 - concise
 - readable by Chinese tech audiences
+- opinionated and human, not robotic
+- may use slang, idioms, colloquial turns of phrase, or other distinctive personal expressions when they improve voice
+- keep the voice vivid but still grounded in what was actually visible on HN
 - no hashtags unless the user asks
 - no links unless the user asks
 
@@ -121,25 +133,34 @@ If writing a thread:
 - maintain flow across posts instead of making each one feel like a separate unrelated update
 - use simple numbering such as `1/`, `2/`, `3/` when that improves clarity
 - avoid stuffing every retained HN item into the thread; keep only the strongest signals
+- prefer sharp summaries over flat inventory lists
+- let the wording have some personality, but do not let jokes or slang blur the actual point
 
 ### 6. Enforce Length Before Posting
 
 Before posting, make sure each post is short enough for a standard X post.
 
+Length rules to enforce:
+
+- standard X posts are limited to `280` characters for normal users
+- a Chinese character usually consumes about `1-2` characters of the counter
+- a link usually consumes about `23` characters even when it looks shorter
+- always trust the visible X counter over any rough manual estimate
+
 If it is too long:
 
-- compress aggressively
+- first consider splitting the content into more thread posts
+- compress only after the thread structure is already reasonable
 - remove low-signal items first
 - collapse repeated categories into one phrase
 - keep the main pattern, not the full inventory
-
-For single posts, prefer one compact paragraph over a long numbered list.
 
 For threads:
 
 - shorten each post independently
 - keep the thread balanced, but do not force equal lengths
-- if the thread is getting too long overall, reduce the number of retained signals before increasing the number of posts again
+- if one post is doing too much, split it before flattening it
+- if the thread is getting too long overall, remove lower-signal details before sacrificing the total-summary-total structure
 
 ### 7. Post On X
 
@@ -218,13 +239,14 @@ If the text length is obviously short enough but X claims it is over limit or ot
 
 ### Post Or Thread Is Too Long
 
-Shorten and retry. Do not stop at the first over-limit failure.
+Restructure, shorten, and retry. Do not stop at the first over-limit failure.
 
 If using a thread:
 
+- first split overloaded posts into additional thread posts when that improves readability
 - first shorten the affected post
 - then remove lower-signal details
-- only increase the thread length again if readability clearly improves and the user did not specify the count
+- increasing thread length is acceptable when it makes the post sequence clearer and the user did not specify the count
 
 ### Posting Still Fails
 
@@ -258,5 +280,6 @@ When blocked, give:
 - Do not trust visible text alone; the post button state and counter state are the real readiness checks
 - Prefer `Ctrl + Enter` as the standard publish action, with button click only as fallback
 - When the user specifies the number of thread posts up front, follow that instruction exactly
-- When the user does not specify a count, choose the smallest count that preserves readability, while allowing `2` posts by default when that reads better than `1`
+- When the user does not specify a count, default to at least `3` posts and expand further when needed to explain the signal properly
+- HN usually contains enough density that a single-post summary is an exception, not the default
 - After publishing, verify on profile that the new post or thread is actually published before reporting success
