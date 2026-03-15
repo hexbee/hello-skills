@@ -102,16 +102,19 @@ Prefer one compact paragraph over a long numbered list.
 
 ### 6. Post On X
 
-Use the homepage composer (click the "Post" button to open modal composer):
+Use the homepage composer with keyboard-first actions:
 
 - go to `https://x.com/home`
-- confirm the modal composer is visible before typing
+- prefer pressing `n` first to open the new post composer
+- if `n` does not open the composer, fall back to clicking the homepage `Post` button
+- confirm the composer is visible before typing
 - **NEVER use fill** - must use type_text to input the complete text in one go
 - Do not input in steps or modify mid-way - input the full Chinese text at once
 - verify both of these before posting:
   - the post button is enabled
   - the character counter looks normal
-- click `Post`
+- prefer pressing `Ctrl + Enter` to publish
+- if `Ctrl + Enter` does not publish, fall back to clicking `Post`
 
 ### 7. Verify Completion
 
@@ -149,6 +152,7 @@ If the text length is obviously short enough but X claims it is over limit or ot
 
 - assume the composer state is corrupted
 - refresh or reopen `https://x.com/home`
+- press `n` again to reopen a fresh composer when possible
 - re-enter the final text in the homepage modal composer
 - do not keep retrying in the broken composer state
 
@@ -183,6 +187,7 @@ When blocked, give:
 - Prefer a small set of strong signals over exhaustive coverage
 - Favor execution reliability over perfect prose
 - If the user asks for a draft only, do not auto-post
-- On X, use the homepage modal composer as the standard posting path
+- On X, use the homepage modal composer as the standard posting path, with `n` as the preferred way to open it
 - Do not trust visible text alone; the post button state and counter state are the real readiness checks
-- After clicking post, verify on profile that the new post is actually published before reporting success
+- Prefer `Ctrl + Enter` as the standard publish action, with button click only as fallback
+- After publishing, verify on profile that the new post is actually published before reporting success
