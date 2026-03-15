@@ -1,0 +1,4 @@
+interface:
+  display_name: "HN to X Poster"
+  short_description: "Scan HN top 30 and post to X"
+  default_prompt: "Use $hn-to-x-poster to scan HN top 30, pick software or AI items, and post a short Chinese summary to X."
