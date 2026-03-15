@@ -102,24 +102,22 @@ Prefer one compact paragraph over a long numbered list.
 
 ### 6. Post On X
 
-Use the more reliable path first:
+Use the homepage inline composer:
 
-- prefer `https://x.com/compose/post` over the homepage inline composer
-
-Then:
-
-- put the final Chinese text into the composer
-- verify the post button is enabled
+- go to `https://x.com/home`
+- confirm the inline composer is visible before typing
+- enter the final Chinese text with keyboard-style input
+- verify both of these before posting:
+  - the post button is enabled
+  - the character counter looks normal
 - click `Post`
-
-If the homepage composer behaves inconsistently, switch to the dedicated compose page instead of retrying the inline composer repeatedly.
 
 ### 7. Verify Completion
 
 After posting:
 
-- return to the timeline or resulting post view
-- confirm the new post appears
+- go to the account profile or resulting post view
+- confirm the new post appears as the latest visible post
 - capture the post URL if available
 
 Do not claim success unless the post is visibly present in the browser.
@@ -135,13 +133,22 @@ Return:
 - a brief note that automatic posting is blocked because X is not logged in
 - the final Chinese draft
 
-### Composer Does Not Recognize Filled Text
+### Composer Does Not Recognize Input
 
-If directly filling the textbox does not enable the post button:
+If text appears in the textbox but the post button stays disabled:
 
-- switch to the dedicated compose page
-- use more realistic keyboard-style input if needed
-- re-check the button state before posting
+- treat this as an input-recognition failure, not a writing failure
+- clear the composer, then re-enter the final text with keyboard-style input
+- re-check both the post button and the character counter before posting
+
+### Composer Counter Looks Wrong
+
+If the text length is obviously short enough but X claims it is over limit or otherwise shows a broken counter:
+
+- assume the composer state is corrupted
+- refresh or reopen `https://x.com/home`
+- re-enter the final text in the homepage inline composer
+- do not keep retrying in the broken composer state
 
 ### Post Is Too Long
 
@@ -174,3 +181,6 @@ When blocked, give:
 - Prefer a small set of strong signals over exhaustive coverage
 - Favor execution reliability over perfect prose
 - If the user asks for a draft only, do not auto-post
+- On X, use the homepage inline composer as the standard posting path
+- Do not trust visible text alone; the post button state and counter state are the real readiness checks
+- After clicking post, verify on profile that the new post is actually published before reporting success
