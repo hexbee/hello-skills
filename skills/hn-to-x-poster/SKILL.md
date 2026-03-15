@@ -1,15 +1,15 @@
 ---
 name: hn-to-x-poster
-description: Use this when the user wants to review Hacker News top 30 stories, select software or AI related items, and automatically publish a short Chinese summary to x.com or Twitter from an already logged-in browser session.
+description: Use this when the user wants to review Hacker News top 30 stories, select software or AI related items, and automatically publish a short Chinese summary or thread to x.com or Twitter from an already logged-in browser session.
 ---
 
 # HN to X Poster
 
 ## Overview
 
-Use this skill for a browser-driven workflow that reads the current Hacker News front page, filters the top 30 stories for software or AI relevance, compresses the signal into one short Chinese post, and publishes it to `x.com`.
+Use this skill for a browser-driven workflow that reads the current Hacker News front page, filters the top 30 stories for software or AI relevance, compresses the signal into one short Chinese post or a short thread, and publishes it to `x.com`.
 
-This skill is for direct execution, not just drafting. Default behavior is to post automatically if `x.com` is already logged in. If posting is blocked, fall back to a ready-to-send Chinese draft and explain the blocker briefly.
+This skill is for direct execution, not just drafting. Default behavior is to post automatically if `x.com` is already logged in. If posting is blocked, fall back to a ready-to-send Chinese draft or thread and explain the blocker briefly.
 
 ## When To Use
 
@@ -23,7 +23,6 @@ Use this skill when the user asks for any combination of:
 Do not use this skill when:
 
 - the user only wants HN analysis without posting
-- the user wants a multi-post thread
 - the user wants deep article research instead of front-page signal extraction
 
 ## Required Tooling
@@ -70,9 +69,39 @@ Usually drop items that are mainly:
 
 If an item is borderline, prefer keeping it only when a technical audience would plausibly care.
 
-### 4. Build The Post
+### 4. Plan Post Structure
 
-Write one short Chinese post that:
+Decide whether the output should be one post or a thread before writing.
+
+If the user explicitly specifies the number of posts in the thread:
+
+- follow the user's specified count
+- organize the content to fit that count as cleanly as possible
+- do not override the count just because a different number seems better
+
+If the user does not specify the number of posts:
+
+- recommend the number of posts based on readability first, not maximum compression
+- split by natural content blocks instead of arbitrary equal lengths
+- prefer one post when a single post is still clear
+- allow recommending two posts when two posts would read noticeably better, even if one post could technically fit
+- use more than two posts only when the content has multiple distinct sections that would otherwise feel crowded or hard to scan
+
+Default thread planning heuristics:
+
+- `1` post: one clear takeaway with a compact list of signals
+- `2` posts: one post for the strongest HN signals and one post for the synthesis or conclusion
+- `3+` posts: only when there are clearly separate clusters, such as infrastructure, AI tooling, and a final takeaway
+
+When writing a thread, give each post a distinct job. Typical structure:
+
+- post 1: headline or strongest signals
+- post 2: secondary signals or supporting details
+- final post: conclusion, pattern, or takeaway
+
+### 5. Build The Post
+
+Write the final Chinese content as either one post or a short thread that:
 
 - sounds natural on X
 - highlights only the strongest 4 to 7 software or AI signals
@@ -84,12 +113,18 @@ Default style:
 - concise
 - readable by Chinese tech audiences
 - no hashtags unless the user asks
-- no thread unless the user asks
 - no links unless the user asks
 
-### 5. Enforce Length Before Posting
+If writing a thread:
 
-Before posting, make sure the text is short enough for a standard X post.
+- keep each post readable on its own
+- maintain flow across posts instead of making each one feel like a separate unrelated update
+- use simple numbering such as `1/`, `2/`, `3/` when that improves clarity
+- avoid stuffing every retained HN item into the thread; keep only the strongest signals
+
+### 6. Enforce Length Before Posting
+
+Before posting, make sure each post is short enough for a standard X post.
 
 If it is too long:
 
@@ -98,11 +133,19 @@ If it is too long:
 - collapse repeated categories into one phrase
 - keep the main pattern, not the full inventory
 
-Prefer one compact paragraph over a long numbered list.
+For single posts, prefer one compact paragraph over a long numbered list.
 
-### 6. Post On X
+For threads:
 
-Use the homepage composer with keyboard-first actions:
+- shorten each post independently
+- keep the thread balanced, but do not force equal lengths
+- if the thread is getting too long overall, reduce the number of retained signals before increasing the number of posts again
+
+### 7. Post On X
+
+Use the homepage composer with keyboard-first actions.
+
+For a single post:
 
 - go to `https://x.com/home`
 - prefer pressing `n` first to open the new post composer
@@ -116,15 +159,32 @@ Use the homepage composer with keyboard-first actions:
 - prefer pressing `Ctrl + Enter` to publish
 - if `Ctrl + Enter` does not publish, fall back to clicking `Post`
 
-### 7. Verify Completion
+For a thread:
+
+- go to `https://x.com/home`
+- prefer pressing `n` first to open the new post composer
+- if `n` does not open the composer, fall back to clicking the homepage `Post` button
+- confirm the composer is visible before typing
+- **NEVER use fill** - every post in the thread must be entered with `type_text`
+- type the full text of post 1 in one go
+- find and click the `Add post` button to create the next composer cell
+- type the full text of each later post in one go with `type_text`
+- keep repeating until all planned posts are present
+- verify the final publish control is enabled and the visible counters look normal
+- prefer pressing `Ctrl + Enter` once to publish the entire thread
+- if `Ctrl + Enter` does not publish, fall back to clicking the final `Post all` or equivalent publish button
+
+### 8. Verify Completion
 
 After posting:
 
 - go to the account profile or resulting post view
-- confirm the new post appears as the latest visible post
-- capture the post URL if available
+- for a single post, confirm the new post appears as the latest visible post
+- for a thread, confirm the newly published posts appear as the latest visible posts in the expected order
+- capture the first post URL if available
+- when possible, verify at least one reply-linked or sequential thread post is also visible, not just the first post
 
-Do not claim success unless the post is visibly present in the browser.
+Do not claim success unless the post or thread is visibly present in the browser.
 
 ## Failure Handling
 
@@ -135,7 +195,7 @@ Do not attempt login on the user's behalf unless they explicitly ask.
 Return:
 
 - a brief note that automatic posting is blocked because X is not logged in
-- the final Chinese draft
+- the final Chinese draft or thread draft
 
 ### Composer Does Not Recognize Input
 
@@ -156,15 +216,21 @@ If the text length is obviously short enough but X claims it is over limit or ot
 - re-enter the final text in the homepage modal composer
 - do not keep retrying in the broken composer state
 
-### Post Is Too Long
+### Post Or Thread Is Too Long
 
 Shorten and retry. Do not stop at the first over-limit failure.
+
+If using a thread:
+
+- first shorten the affected post
+- then remove lower-signal details
+- only increase the thread length again if readability clearly improves and the user did not specify the count
 
 ### Posting Still Fails
 
 Return:
 
-- the final Chinese text
+- the final Chinese text or thread
 - the exact blocker, such as disabled post button or missing login state
 
 ## Output Expectations
@@ -173,13 +239,14 @@ When successful, give a short result that includes:
 
 - that HN top 30 was reviewed
 - that software or AI items were selected
-- that the Chinese post was published to X
-- the X post URL
+- whether the result was a single post or a thread
+- that the Chinese post or thread was published to X
+- the first X post URL
 
 When blocked, give:
 
 - a brief reason
-- the final Chinese draft
+- the final Chinese draft or thread draft
 
 ## Operating Notes
 
@@ -190,4 +257,6 @@ When blocked, give:
 - On X, use the homepage modal composer as the standard posting path, with `n` as the preferred way to open it
 - Do not trust visible text alone; the post button state and counter state are the real readiness checks
 - Prefer `Ctrl + Enter` as the standard publish action, with button click only as fallback
-- After publishing, verify on profile that the new post is actually published before reporting success
+- When the user specifies the number of thread posts up front, follow that instruction exactly
+- When the user does not specify a count, choose the smallest count that preserves readability, while allowing `2` posts by default when that reads better than `1`
+- After publishing, verify on profile that the new post or thread is actually published before reporting success
