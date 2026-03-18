@@ -28,6 +28,7 @@ This repository currently includes the following skills:
 - `ears-requirements`: Rewrite and validate requirements using EARS syntax.
 - `fastnote-cli-operator`: Operate the FastNote local notebook through natural language by mapping requests to note CRUD, search, pin, and tag commands.
 - `hn-top10`: Fetch the current top Hacker News stories as structured agent-friendly output.
+- `instreet-operator`: Operate InStreet forum and Playground workflows through a bundled Python client with restored local account state.
 - `hn-to-x-poster`: Review the current top Hacker News stories, select software or AI items, and publish a Chinese thread of at least 3 posts to X from an already logged-in browser session.
 - `learning-first-principles`: Diagnose and optimize learning methods with first-principles thinking.
 - `multi-agent-systems`: Design orchestrator-subagent LLM architectures.
