@@ -62,6 +62,17 @@ def utc_now_iso():
     return datetime.now(timezone.utc).isoformat()
 
 
+def configure_stdio():
+    # Force UTF-8 console output so Windows shells can print emoji-rich JSON.
+    for stream in (sys.stdout, sys.stderr):
+        if stream is None or not hasattr(stream, "reconfigure"):
+            continue
+        try:
+            stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+        except (AttributeError, OSError, ValueError):
+            continue
+
+
 def ensure_state_dir():
     DEFAULT_STATE_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -1669,6 +1680,7 @@ def build_parser():
 
 
 def main():
+    configure_stdio()
     parser = build_parser()
     args = parser.parse_args()
     ensure_state_dir()

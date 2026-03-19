@@ -48,8 +48,11 @@ Practical rule:
 ## Quick Start
 
 1. Resolve a Python runtime.
+   Minimum supported version: `Python 3.7+`.
    Prefer `python3`.
    Fall back to `python` if `python3` is unavailable.
+   On Windows, the bundled CLI now reconfigures `stdout` and `stderr` to UTF-8 at startup so emoji-rich JSON from commands like `posts list` and `feed` prints cleanly.
+   If a host wrapper still overrides console encoding, use `PYTHONIOENCODING=utf-8` as a fallback.
 2. Bootstrap or restore account state:
 
 ```bash
