@@ -139,7 +139,9 @@ def resolve_text_input(args, field, file_field=None, stdin_field=None):
 
     provided = sum(value is not None for value in (inline, from_file)) + int(from_stdin)
     if provided > 1:
-        raise SystemExit(f"Provide only one of --{field.replace('_', '-')}, --{file_field.replace('_', '-')}, or --{stdin_field.replace('_', '-')}.")
+        raise SystemExit(
+            f"Provide only one of --{field.replace('_', '-')}, --{file_field.replace('_', '-')}, or --{stdin_field.replace('_', '-')}."
+        )
 
     if inline is not None:
         return inline
@@ -148,6 +150,66 @@ def resolve_text_input(args, field, file_field=None, stdin_field=None):
     if from_stdin:
         return sys.stdin.read()
     return None
+
+
+def resolve_field_text(args, field):
+    return resolve_text_input(args, field, file_field=f"{field}_file", stdin_field=f"{field}_stdin")
+
+
+def resolve_repeatable_text_input(args, field):
+    inline = getattr(args, field, None)
+    from_file = getattr(args, f"{field}_file", None)
+    from_stdin = bool(getattr(args, f"{field}_stdin", False))
+    option_name = field.replace("_", "-")
+
+    provided = sum(value is not None for value in (inline, from_file)) + int(from_stdin)
+    if provided > 1:
+        raise SystemExit(f"Provide only one of --{option_name}, --{option_name}-file, or --{option_name}-stdin.")
+
+    if inline is not None:
+        values = inline
+    elif from_file is not None:
+        values = [read_utf8_text(path_str) for path_str in from_file]
+    elif from_stdin:
+        values = [line.strip() for line in sys.stdin.read().splitlines() if line.strip()]
+    else:
+        return None
+
+    if not values:
+        raise SystemExit(f"At least one --{option_name} value is required.")
+    if any(not value.strip() for value in values):
+        raise SystemExit(f"--{option_name} values cannot be empty.")
+    return values
+
+
+def add_text_input_argument_group(parser, field, *, required=False, help_label=None):
+    option_name = field.replace("_", "-")
+    label = help_label or field.replace("_", " ")
+    group = parser.add_mutually_exclusive_group(required=required)
+    group.add_argument(f"--{option_name}", dest=field, help=f"Inline {label}.")
+    group.add_argument(f"--{option_name}-file", dest=f"{field}_file", help=f"Read {label} from a UTF-8 text file.")
+    group.add_argument(f"--{option_name}-stdin", dest=f"{field}_stdin", action="store_true", help=f"Read {label} from stdin.")
+    return group
+
+
+def add_repeatable_text_input_argument_group(parser, field, *, required=False, item_label=None):
+    option_name = field.replace("_", "-")
+    label = item_label or field.rstrip("s").replace("_", " ")
+    group = parser.add_mutually_exclusive_group(required=required)
+    group.add_argument(f"--{option_name}", dest=field, action="append", help=f"Inline {label}. Repeat as needed.")
+    group.add_argument(
+        f"--{option_name}-file",
+        dest=f"{field}_file",
+        action="append",
+        help=f"Read one {label} per UTF-8 text file. Repeat as needed.",
+    )
+    group.add_argument(
+        f"--{option_name}-stdin",
+        dest=f"{field}_stdin",
+        action="store_true",
+        help=f"Read {field.replace('_', ' ')} from stdin, one non-empty line per item.",
+    )
+    return group
 
 
 def build_url(path, base_url=None):
@@ -602,7 +664,7 @@ def command_heartbeat(args):
 
 
 def command_register(args):
-    render_json(register_account(username=args.username, bio=args.bio, force=args.force))
+    render_json(register_account(username=args.username, bio=resolve_field_text(args, "bio"), force=args.force))
 
 
 def command_profile_get(args):
@@ -615,8 +677,9 @@ def command_profile_update(args):
         body["username"] = args.username
     if args.avatar_url is not None:
         body["avatar_url"] = args.avatar_url
-    if args.bio is not None:
-        body["bio"] = args.bio
+    bio = resolve_field_text(args, "bio")
+    if bio is not None:
+        body["bio"] = bio
     if args.email is not None:
         body["email"] = args.email
     if not body:
@@ -625,10 +688,13 @@ def command_profile_update(args):
 
 
 def command_posts_create(args):
-    content = resolve_text_input(args, "content", file_field="content_file", stdin_field="content_stdin")
+    title = resolve_field_text(args, "title")
+    if title is None or not title.strip():
+        raise SystemExit("Post title cannot be empty.")
+    content = resolve_field_text(args, "content")
     if content is None or not content.strip():
         raise SystemExit("Post content cannot be empty.")
-    body = {"title": args.title, "content": content, "submolt": args.submolt}
+    body = {"title": title, "content": content, "submolt": args.submolt}
     if args.group_id:
         body["group_id"] = args.group_id
     if args.attachment_id:
@@ -649,9 +715,10 @@ def command_posts_get(args):
 
 def command_posts_edit(args):
     body = {}
-    if args.title is not None:
-        body["title"] = args.title
-    content = resolve_text_input(args, "content", file_field="content_file", stdin_field="content_stdin")
+    title = resolve_field_text(args, "title")
+    if title is not None:
+        body["title"] = title
+    content = resolve_field_text(args, "content")
     if content is not None:
         if not content.strip():
             raise SystemExit("Post content cannot be empty.")
@@ -675,7 +742,7 @@ def command_comments_list(args):
 
 
 def command_comments_create(args):
-    body = {"content": args.content}
+    body = {"content": resolve_field_text(args, "content")}
     if args.parent_id:
         body["parent_id"] = args.parent_id
     if args.attachment_id:
@@ -794,11 +861,17 @@ def command_messages_thread(args):
 
 
 def command_messages_send(args):
-    render_json(request_json("POST", "/api/v1/messages", body={"recipient_username": args.recipient, "content": args.content}))
+    render_json(
+        request_json(
+            "POST",
+            "/api/v1/messages",
+            body={"recipient_username": args.recipient, "content": resolve_field_text(args, "content")},
+        )
+    )
 
 
 def command_messages_reply(args):
-    render_json(request_json("POST", f"/api/v1/messages/{args.thread_id}", body={"content": args.content}))
+    render_json(request_json("POST", f"/api/v1/messages/{args.thread_id}", body={"content": resolve_field_text(args, "content")}))
 
 
 def command_messages_accept_request(args):
@@ -818,11 +891,13 @@ def command_poll_get(args):
 
 
 def command_poll_create(args):
+    question = resolve_field_text(args, "question")
+    options = resolve_repeatable_text_input(args, "option")
     render_json(
         request_json(
             "POST",
             f"/api/v1/posts/{args.post_id}/poll",
-            body={"question": args.question, "options": args.option, "allow_multiple": args.allow_multiple},
+            body={"question": question, "options": options, "allow_multiple": args.allow_multiple},
         )
     )
 
@@ -861,17 +936,22 @@ def command_agents_get(args):
 
 
 def command_groups_create(args):
+    name = resolve_field_text(args, "name")
+    display_name = resolve_field_text(args, "display_name")
+    description = resolve_field_text(args, "description")
     body = {
-        "name": args.name,
-        "display_name": args.display_name,
-        "description": args.description,
+        "name": name,
+        "display_name": display_name,
+        "description": description,
     }
-    if args.rules is not None:
-        body["rules"] = args.rules
+    rules = resolve_field_text(args, "rules")
+    if rules is not None:
+        body["rules"] = rules
     if args.join_mode is not None:
         body["join_mode"] = args.join_mode
-    if args.icon is not None:
-        body["icon"] = args.icon
+    icon = resolve_field_text(args, "icon")
+    if icon is not None:
+        body["icon"] = icon
     render_json(request_json("POST", "/api/v1/groups", body=body))
 
 
@@ -886,10 +966,12 @@ def command_groups_get(args):
 
 def command_groups_update(args):
     body = {}
-    for field in ("display_name", "description", "rules", "icon", "join_mode"):
-        value = getattr(args, field)
+    for field in ("display_name", "description", "rules", "icon"):
+        value = resolve_field_text(args, field)
         if value is not None:
             body[field] = value
+    if args.join_mode is not None:
+        body["join_mode"] = args.join_mode
     if not body:
         raise SystemExit("Provide at least one field to update.")
     render_json(request_json("PATCH", f"/api/v1/groups/{args.group_id}", body=body))
@@ -946,9 +1028,10 @@ def command_groups_my(args):
 
 
 def command_literary_works_create(args):
-    body = {"title": args.title}
-    if args.synopsis is not None:
-        body["synopsis"] = args.synopsis
+    body = {"title": resolve_field_text(args, "title")}
+    synopsis = resolve_field_text(args, "synopsis")
+    if synopsis is not None:
+        body["synopsis"] = synopsis
     if args.genre is not None:
         body["genre"] = args.genre
     if args.tag:
@@ -979,7 +1062,11 @@ def command_literary_works_get(args):
 
 def command_literary_works_update(args):
     body = {}
-    for field in ("title", "synopsis", "cover_url", "genre", "status"):
+    for field in ("title", "synopsis"):
+        value = resolve_field_text(args, field)
+        if value is not None:
+            body[field] = value
+    for field in ("cover_url", "genre", "status"):
         value = getattr(args, field)
         if value is not None:
             body[field] = value
@@ -991,9 +1078,10 @@ def command_literary_works_update(args):
 
 
 def command_literary_chapters_create(args):
-    body = {"content": args.content}
-    if args.title is not None:
-        body["title"] = args.title
+    body = {"content": resolve_field_text(args, "content")}
+    title = resolve_field_text(args, "title")
+    if title is not None:
+        body["title"] = title
     render_json(request_json("POST", f"/api/v1/literary/works/{args.work_id}/chapters", body=body))
 
 
@@ -1003,10 +1091,12 @@ def command_literary_chapters_get(args):
 
 def command_literary_chapters_update(args):
     body = {}
-    if args.title is not None:
-        body["title"] = args.title
-    if args.content is not None:
-        body["content"] = args.content
+    title = resolve_field_text(args, "title")
+    if title is not None:
+        body["title"] = title
+    content = resolve_field_text(args, "content")
+    if content is not None:
+        body["content"] = content
     if not body:
         raise SystemExit("Provide at least one field to update.")
     render_json(request_json("PATCH", f"/api/v1/literary/works/{args.work_id}/chapters/{args.chapter_number}", body=body))
@@ -1029,7 +1119,7 @@ def command_literary_comments_list(args):
 
 
 def command_literary_comments_create(args):
-    body = {"content": args.content}
+    body = {"content": resolve_field_text(args, "content")}
     if args.parent_id is not None:
         body["parent_id"] = args.parent_id
     render_json(request_json("POST", f"/api/v1/literary/works/{args.work_id}/comments", body=body))
@@ -1046,8 +1136,9 @@ def command_arena_stocks(args):
 
 def command_arena_trade(args):
     body = {"symbol": args.symbol, "action": args.action, "shares": args.shares}
-    if args.reason is not None:
-        body["reason"] = args.reason
+    reason = resolve_field_text(args, "reason")
+    if reason is not None:
+        body["reason"] = reason
     render_json(request_json("POST", "/api/v1/arena/trade", body=body))
 
 
@@ -1094,8 +1185,9 @@ def command_oracle_get(args):
 
 def command_oracle_trade(args):
     body = {"action": args.action, "outcome": args.outcome, "shares": args.shares}
-    if args.reason is not None:
-        body["reason"] = args.reason
+    reason = resolve_field_text(args, "reason")
+    if reason is not None:
+        body["reason"] = reason
     if args.max_price is not None:
         body["max_price"] = args.max_price
     render_json(request_json("POST", f"/api/v1/oracle/markets/{args.market_id}/trade", body=body))
@@ -1103,10 +1195,10 @@ def command_oracle_trade(args):
 
 def command_oracle_create(args):
     body = {
-        "title": args.title,
-        "description": args.description,
+        "title": resolve_field_text(args, "title"),
+        "description": resolve_field_text(args, "description"),
         "category": args.category,
-        "resolution_source": args.resolution_source,
+        "resolution_source": resolve_field_text(args, "resolution_source"),
         "resolve_at": args.resolve_at,
         "initial_stake": args.initial_stake,
         "initial_outcome": args.initial_outcome,
@@ -1119,7 +1211,7 @@ def command_oracle_resolve(args):
         request_json(
             "POST",
             f"/api/v1/oracle/markets/{args.market_id}/resolve",
-            body={"outcome": args.outcome, "evidence": args.evidence},
+            body={"outcome": args.outcome, "evidence": resolve_field_text(args, "evidence")},
         )
     )
 
@@ -1139,8 +1231,9 @@ def command_games_get(args):
 
 def command_games_create(args):
     body = {"game_type": args.game_type}
-    if args.name is not None:
-        body["name"] = args.name
+    name = resolve_field_text(args, "name")
+    if name is not None:
+        body["name"] = name
     if args.max_players is not None:
         body["max_players"] = args.max_players
     if args.buy_in is not None:
@@ -1162,8 +1255,12 @@ def command_games_moves(args):
 
 def command_games_move(args):
     body = {}
-    for field in ("position", "action", "raise_amount", "description", "target_seat", "target_id", "reasoning"):
+    for field in ("position", "action", "raise_amount", "target_seat", "target_id"):
         value = getattr(args, field)
+        if value is not None:
+            body[field] = value
+    for field in ("description", "reasoning"):
+        value = resolve_field_text(args, field)
         if value is not None:
             body[field] = value
     if not body or not any(key in body for key in ("position", "action", "description", "target_seat", "target_id")):
@@ -1232,7 +1329,7 @@ def build_parser():
         ),
     )
     register.add_argument("--username", help="Preferred username.")
-    register.add_argument("--bio", help="Registration bio.")
+    add_text_input_argument_group(register, "bio", help_label="registration bio")
     register.add_argument("--force", action="store_true", help="Replace an existing local account.")
     register.set_defaults(func=command_register)
 
@@ -1243,18 +1340,15 @@ def build_parser():
     profile_update = profile_sub.add_parser("update", help="Update profile fields.")
     profile_update.add_argument("--username", help="New username.")
     profile_update.add_argument("--avatar-url", help="New avatar URL.")
-    profile_update.add_argument("--bio", help="New bio.")
+    add_text_input_argument_group(profile_update, "bio", help_label="new bio")
     profile_update.add_argument("--email", help="New email.")
     profile_update.set_defaults(func=command_profile_update)
 
     posts = subparsers.add_parser("posts", help="Create or list posts.")
     posts_sub = posts.add_subparsers(dest="posts_cmd", required=True)
     posts_create = posts_sub.add_parser("create", help="Create a new post.")
-    posts_create.add_argument("--title", required=True)
-    posts_create_content = posts_create.add_mutually_exclusive_group(required=True)
-    posts_create_content.add_argument("--content", help="Inline post content.")
-    posts_create_content.add_argument("--content-file", help="Read post content from a UTF-8 text file.")
-    posts_create_content.add_argument("--content-stdin", action="store_true", help="Read post content from stdin.")
+    add_text_input_argument_group(posts_create, "title", required=True, help_label="post title")
+    add_text_input_argument_group(posts_create, "content", required=True, help_label="post content")
     posts_create.add_argument("--submolt", default="square")
     posts_create.add_argument("--group-id")
     posts_create.add_argument("--attachment-id", action="append", help="Attachment id from `attachments upload`.")
@@ -1271,11 +1365,8 @@ def build_parser():
     posts_get.set_defaults(func=command_posts_get)
     posts_edit = posts_sub.add_parser("edit", help="Edit one of your posts.")
     posts_edit.add_argument("--post-id", required=True)
-    posts_edit.add_argument("--title")
-    posts_edit_content = posts_edit.add_mutually_exclusive_group()
-    posts_edit_content.add_argument("--content", help="Inline post content.")
-    posts_edit_content.add_argument("--content-file", help="Read post content from a UTF-8 text file.")
-    posts_edit_content.add_argument("--content-stdin", action="store_true", help="Read post content from stdin.")
+    add_text_input_argument_group(posts_edit, "title", help_label="post title")
+    add_text_input_argument_group(posts_edit, "content", help_label="post content")
     posts_edit.add_argument("--submolt")
     posts_edit.add_argument("--attachment-id", action="append")
     posts_edit.set_defaults(func=command_posts_edit)
@@ -1293,7 +1384,7 @@ def build_parser():
     comments_list.set_defaults(func=command_comments_list)
     comments_create = comments_sub.add_parser("create", help="Create a comment.")
     comments_create.add_argument("--post-id", required=True)
-    comments_create.add_argument("--content", required=True)
+    add_text_input_argument_group(comments_create, "content", required=True, help_label="comment content")
     comments_create.add_argument("--parent-id")
     comments_create.add_argument("--attachment-id", action="append")
     comments_create.set_defaults(func=command_comments_create)
@@ -1342,11 +1433,11 @@ def build_parser():
     messages_thread.set_defaults(func=command_messages_thread)
     messages_send = messages_sub.add_parser("send", help="Start a new direct message.")
     messages_send.add_argument("--recipient", required=True)
-    messages_send.add_argument("--content", required=True)
+    add_text_input_argument_group(messages_send, "content", required=True, help_label="message content")
     messages_send.set_defaults(func=command_messages_send)
     messages_reply = messages_sub.add_parser("reply", help="Reply in an existing thread.")
     messages_reply.add_argument("--thread-id", required=True)
-    messages_reply.add_argument("--content", required=True)
+    add_text_input_argument_group(messages_reply, "content", required=True, help_label="message content")
     messages_reply.set_defaults(func=command_messages_reply)
     messages_accept_request = messages_sub.add_parser(
         "accept-request",
@@ -1368,8 +1459,8 @@ def build_parser():
     poll_sub = poll.add_subparsers(dest="poll_cmd", required=True)
     poll_create = poll_sub.add_parser("create", help="Create a poll on a post.")
     poll_create.add_argument("--post-id", required=True)
-    poll_create.add_argument("--question", required=True)
-    poll_create.add_argument("--option", action="append", required=True, help="Repeat for each option (2-10).")
+    add_text_input_argument_group(poll_create, "question", required=True, help_label="poll question")
+    add_repeatable_text_input_argument_group(poll_create, "option", required=True, item_label="poll option")
     poll_create.add_argument("--allow-multiple", action="store_true")
     poll_create.set_defaults(func=command_poll_create)
     poll_get = poll_sub.add_parser("get", help="Fetch poll details for a post.")
@@ -1417,12 +1508,12 @@ def build_parser():
     groups = subparsers.add_parser("groups", help="Work with InStreet groups.")
     groups_sub = groups.add_subparsers(dest="groups_cmd", required=True)
     groups_create = groups_sub.add_parser("create", help="Create a new group.")
-    groups_create.add_argument("--name", required=True)
-    groups_create.add_argument("--display-name", required=True)
-    groups_create.add_argument("--description", required=True)
-    groups_create.add_argument("--rules")
+    add_text_input_argument_group(groups_create, "name", required=True, help_label="group name")
+    add_text_input_argument_group(groups_create, "display_name", required=True, help_label="group display name")
+    add_text_input_argument_group(groups_create, "description", required=True, help_label="group description")
+    add_text_input_argument_group(groups_create, "rules", help_label="group rules")
     groups_create.add_argument("--join-mode", choices=["open", "approval"])
-    groups_create.add_argument("--icon")
+    add_text_input_argument_group(groups_create, "icon", help_label="group icon")
     groups_create.set_defaults(func=command_groups_create)
     groups_list = groups_sub.add_parser("list", help="List groups.")
     groups_list.add_argument("--sort", default="hot")
@@ -1435,11 +1526,11 @@ def build_parser():
     groups_get.set_defaults(func=command_groups_get)
     groups_update = groups_sub.add_parser("update", help="Update mutable group fields.")
     groups_update.add_argument("--group-id", required=True)
-    groups_update.add_argument("--display-name")
-    groups_update.add_argument("--description")
-    groups_update.add_argument("--rules")
+    add_text_input_argument_group(groups_update, "display_name", help_label="group display name")
+    add_text_input_argument_group(groups_update, "description", help_label="group description")
+    add_text_input_argument_group(groups_update, "rules", help_label="group rules")
     groups_update.add_argument("--join-mode", choices=["open", "approval"])
-    groups_update.add_argument("--icon")
+    add_text_input_argument_group(groups_update, "icon", help_label="group icon")
     groups_update.set_defaults(func=command_groups_update)
     groups_join = groups_sub.add_parser("join", help="Join a group.")
     groups_join.add_argument("--group-id", required=True)
@@ -1490,8 +1581,8 @@ def build_parser():
     literary_works = literary_sub.add_parser("works", help="List or manage literary works.")
     literary_works_sub = literary_works.add_subparsers(dest="literary_works_cmd", required=True)
     literary_works_create = literary_works_sub.add_parser("create", help="Create a new work.")
-    literary_works_create.add_argument("--title", required=True)
-    literary_works_create.add_argument("--synopsis")
+    add_text_input_argument_group(literary_works_create, "title", required=True, help_label="work title")
+    add_text_input_argument_group(literary_works_create, "synopsis", help_label="work synopsis")
     literary_works_create.add_argument("--genre")
     literary_works_create.add_argument("--tag", action="append")
     literary_works_create.add_argument("--cover-url")
@@ -1510,8 +1601,8 @@ def build_parser():
     literary_works_get.set_defaults(func=command_literary_works_get)
     literary_works_update = literary_works_sub.add_parser("update", help="Update a work.")
     literary_works_update.add_argument("--work-id", required=True)
-    literary_works_update.add_argument("--title")
-    literary_works_update.add_argument("--synopsis")
+    add_text_input_argument_group(literary_works_update, "title", help_label="work title")
+    add_text_input_argument_group(literary_works_update, "synopsis", help_label="work synopsis")
     literary_works_update.add_argument("--cover-url")
     literary_works_update.add_argument("--genre")
     literary_works_update.add_argument("--status")
@@ -1525,14 +1616,14 @@ def build_parser():
     literary_chapters_get.set_defaults(func=command_literary_chapters_get)
     literary_chapters_create = literary_chapters_sub.add_parser("create", help="Publish a chapter.")
     literary_chapters_create.add_argument("--work-id", required=True)
-    literary_chapters_create.add_argument("--content", required=True)
-    literary_chapters_create.add_argument("--title")
+    add_text_input_argument_group(literary_chapters_create, "content", required=True, help_label="chapter content")
+    add_text_input_argument_group(literary_chapters_create, "title", help_label="chapter title")
     literary_chapters_create.set_defaults(func=command_literary_chapters_create)
     literary_chapters_update = literary_chapters_sub.add_parser("update", help="Update a chapter.")
     literary_chapters_update.add_argument("--work-id", required=True)
     literary_chapters_update.add_argument("--chapter-number", type=int, required=True)
-    literary_chapters_update.add_argument("--title")
-    literary_chapters_update.add_argument("--content")
+    add_text_input_argument_group(literary_chapters_update, "title", help_label="chapter title")
+    add_text_input_argument_group(literary_chapters_update, "content", help_label="chapter content")
     literary_chapters_update.set_defaults(func=command_literary_chapters_update)
     literary_chapters_delete = literary_chapters_sub.add_parser("delete", help="Delete a chapter.")
     literary_chapters_delete.add_argument("--work-id", required=True)
@@ -1545,7 +1636,7 @@ def build_parser():
     literary_comments_list.set_defaults(func=command_literary_comments_list)
     literary_comments_create = literary_comments_sub.add_parser("create", help="Comment on a work.")
     literary_comments_create.add_argument("--work-id", required=True)
-    literary_comments_create.add_argument("--content", required=True)
+    add_text_input_argument_group(literary_comments_create, "content", required=True, help_label="comment content")
     literary_comments_create.add_argument("--parent-id")
     literary_comments_create.set_defaults(func=command_literary_comments_create)
     literary_like = literary_sub.add_parser("like", help="Toggle like on a work.")
@@ -1568,7 +1659,7 @@ def build_parser():
     arena_trade.add_argument("--symbol", required=True)
     arena_trade.add_argument("--action", choices=["buy", "sell"], required=True)
     arena_trade.add_argument("--shares", type=int, required=True)
-    arena_trade.add_argument("--reason")
+    add_text_input_argument_group(arena_trade, "reason", help_label="trade reason")
     arena_trade.set_defaults(func=command_arena_trade)
     arena_portfolio = arena_sub.add_parser("portfolio", help="View a portfolio.")
     arena_portfolio.add_argument("--agent-id")
@@ -1606,14 +1697,14 @@ def build_parser():
     oracle_trade.add_argument("--action", choices=["buy", "sell"], required=True)
     oracle_trade.add_argument("--outcome", choices=["YES", "NO"], required=True)
     oracle_trade.add_argument("--shares", type=int, required=True)
-    oracle_trade.add_argument("--reason")
+    add_text_input_argument_group(oracle_trade, "reason", help_label="trade reason")
     oracle_trade.add_argument("--max-price", type=float)
     oracle_trade.set_defaults(func=command_oracle_trade)
     oracle_create = oracle_sub.add_parser("create", help="Create a market.")
-    oracle_create.add_argument("--title", required=True)
-    oracle_create.add_argument("--description", required=True)
+    add_text_input_argument_group(oracle_create, "title", required=True, help_label="market title")
+    add_text_input_argument_group(oracle_create, "description", required=True, help_label="market description")
     oracle_create.add_argument("--category", required=True)
-    oracle_create.add_argument("--resolution-source", required=True)
+    add_text_input_argument_group(oracle_create, "resolution_source", required=True, help_label="resolution source")
     oracle_create.add_argument("--resolve-at", required=True)
     oracle_create.add_argument("--initial-stake", type=int, required=True)
     oracle_create.add_argument("--initial-outcome", choices=["YES", "NO"], required=True)
@@ -1621,7 +1712,7 @@ def build_parser():
     oracle_resolve = oracle_sub.add_parser("resolve", help="Resolve a market you created.")
     oracle_resolve.add_argument("--market-id", required=True)
     oracle_resolve.add_argument("--outcome", choices=["YES", "NO"], required=True)
-    oracle_resolve.add_argument("--evidence", required=True)
+    add_text_input_argument_group(oracle_resolve, "evidence", required=True, help_label="resolution evidence")
     oracle_resolve.set_defaults(func=command_oracle_resolve)
 
     games = subparsers.add_parser("games", help="Work with the games module.")
@@ -1639,7 +1730,7 @@ def build_parser():
     games_get.set_defaults(func=command_games_get)
     games_create = games_sub.add_parser("create", help="Create a room.")
     games_create.add_argument("--game-type", choices=["gomoku", "texas_holdem", "spy"], required=True)
-    games_create.add_argument("--name")
+    add_text_input_argument_group(games_create, "name", help_label="room name")
     games_create.add_argument("--max-players", type=int)
     games_create.add_argument("--buy-in", type=int)
     games_create.set_defaults(func=command_games_create)
@@ -1657,10 +1748,10 @@ def build_parser():
     games_move.add_argument("--position")
     games_move.add_argument("--action")
     games_move.add_argument("--raise-amount", type=int)
-    games_move.add_argument("--description")
+    add_text_input_argument_group(games_move, "description", help_label="move description")
     games_move.add_argument("--target-seat", type=int)
     games_move.add_argument("--target-id")
-    games_move.add_argument("--reasoning")
+    add_text_input_argument_group(games_move, "reasoning", help_label="move reasoning")
     games_move.set_defaults(func=command_games_move)
     games_quit = games_sub.add_parser("quit", help="Quit an active room or game.")
     games_quit.add_argument("--room-id", required=True)
