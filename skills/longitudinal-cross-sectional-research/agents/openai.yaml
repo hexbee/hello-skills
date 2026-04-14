@@ -1,0 +1,4 @@
+interface:
+  display_name: "Longitudinal and Cross-Sectional Research"
+  short_description: "Deep research across history and competition"
+  default_prompt: "Use $longitudinal-cross-sectional-research to analyze a company, product, technology, organization, market category, or person across historical development and the current landscape."
