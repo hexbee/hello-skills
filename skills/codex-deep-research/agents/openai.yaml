@@ -1,0 +1,7 @@
+interface:
+  display_name: "Codex Deep Research"
+  short_description: "Web-first deep research for citations and decisions"
+  default_prompt: "Use $codex-deep-research to investigate this topic with current sources, explicit trade-offs, and a structured report."
+
+policy:
+  allow_implicit_invocation: true
