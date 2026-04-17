@@ -19,7 +19,7 @@ Use Dokobot only through the local bridge and the user's Chrome session.
 1. Read the page in local mode:
 
 ```bash
-dokobot doko read '<URL>' --local
+dokobot read '<URL>' --local
 ```
 
 2. If the read fails because no local browser is available, tell the user to open Chrome, enable the Dokobot extension, and verify the local bridge is installed.
@@ -27,19 +27,19 @@ dokobot doko read '<URL>' --local
 3. For long pages, collect more screens or extend timeout:
 
 ```bash
-dokobot doko read '<URL>' --local --screens 5 --timeout 120
+dokobot read '<URL>' --local --screens 5 --timeout 120
 ```
 
 4. When the response includes a `sessionId` and more scrolling is needed, continue the same session:
 
 ```bash
-dokobot doko read '<URL>' --local --session-id <SESSION_ID> --screens 5
+dokobot read '<URL>' --local --session-id <SESSION_ID> --screens 5
 ```
 
 5. Close the session when finished:
 
 ```bash
-dokobot doko close-session <SESSION_ID> --local
+dokobot close-session <SESSION_ID> --local
 ```
 
 ## Commands
@@ -49,7 +49,7 @@ dokobot doko close-session <SESSION_ID> --local
 Use:
 
 ```bash
-dokobot doko read '<URL>' --local [--screens N] [--timeout S] [--format text|chunks] [--reuse-tab]
+dokobot read '<URL>' --local [--screens N] [--timeout S] [--format text|chunks] [--reuse-tab]
 ```
 
 Notes:
