@@ -39,7 +39,7 @@ dokobot read '<URL>' --local --session-id <SESSION_ID> --screens 5
 5. Close the session when finished:
 
 ```bash
-dokobot close-session <SESSION_ID> --local
+dokobot doko close <SESSION_ID> --local
 ```
 
 ## Commands
@@ -91,7 +91,7 @@ Chunked response shape:
 ## Operating rules
 
 - Treat this skill as local-only.
-- Keep the command surface minimal: use only `read --local` and `close-session --local`.
+- Keep the command surface minimal: use only `read --local` and `doko close --local`.
 - Analyze and summarize content after receiving the raw page text; keep Dokobot focused on extraction.
 - Close sessions explicitly when you are done.
 - Keep concurrent reads modest; up to 5 parallel reads is a reasonable ceiling.
