@@ -26,6 +26,14 @@ List what is out of scope to prevent drift.
 
 List the dimensions that should drive the analysis.
 
+## Research Shape
+
+State:
+
+- why this requires deep research instead of a normal answer
+- whether current information is likely to change the conclusion
+- whether multi-agent work is likely to help
+
 ## Deliverable
 
 State the expected output shape, such as a full report, a comparison, or a shorter brief.

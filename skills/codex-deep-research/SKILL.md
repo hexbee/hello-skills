@@ -21,9 +21,9 @@ Do not force the full workflow onto simple factual questions. First decide wheth
 1. Rewrite the request into a compact internal research brief.
 2. Browse early and prefer current, verifiable sources.
 3. Stay single-agent unless there is a real quality benefit to parallel work.
-4. If complexity is high, delegate distinct sub-questions to a small number of sub-agents.
-5. Synthesize into a structured report that separates facts, inferences, and recommendations.
-6. Only save files when the user asks or the result is clearly worth preserving.
+4. If complexity is high, delegate distinct sub-questions to a small number of sub-agents using the sub-agent template.
+5. Deliver a complete research report in the current conversation unless the user explicitly asks for a shorter format.
+6. Only save files when the user asks or the result is clearly worth preserving after the in-session report is complete.
 
 ## Workflow
 
@@ -62,7 +62,7 @@ For time-sensitive topics, use absolute dates in the final answer.
 
 Start single-agent by default. Upgrade to multi-agent only when it clearly improves coverage or speed.
 
-Good reasons to escalate:
+Only escalate when one or more of these are true:
 
 - the task contains distinct sub-questions that can be researched independently
 - the source space is broad enough that parallel coverage will materially improve quality
@@ -71,7 +71,14 @@ Good reasons to escalate:
 
 Avoid escalation when the task is small, narrow, or already well-covered by a single search path.
 
-When delegating, use [assets/subagent-task-template.md](assets/subagent-task-template.md). Give each sub-agent a narrow scope and a clear output contract. The main agent owns final judgment and synthesis.
+When delegating, default to [assets/subagent-task-template.md](assets/subagent-task-template.md). Unless the task is extremely simple, give each sub-agent:
+
+- one narrow question
+- an explicit scope and out-of-scope boundary
+- a source-priority instruction
+- a concise return format
+
+The main agent owns final judgment and synthesis.
 
 ### 5. Synthesize carefully
 
@@ -87,7 +94,7 @@ For the full staged process, see [references/workflow.md](references/workflow.md
 
 ## Output contract
 
-Default to a real research report, not a short generic answer. Use [assets/report-template.md](assets/report-template.md) unless the user explicitly asks for a different format.
+Default to a real research report in the conversation, not a short generic answer and not a summary that points the real content to a file. Use [assets/report-template.md](assets/report-template.md) unless the user explicitly asks for a different format.
 
 The final answer should usually include:
 
@@ -108,15 +115,26 @@ Keep these categories explicit:
 
 If the user explicitly asks for a short report, compress the answer but keep citations and evidence boundaries intact.
 
+Do not treat a saved file as the primary deliverable unless the user explicitly asked for file output.
+
 ## Persistence
 
-Do not save files by default. Persist only when:
+Do not save files by default. Complete the in-session research delivery first. Persist only when:
 
 - the user asks to save the output
 - the result is clearly reusable
 - the task benefits from an auditable artifact trail
 
-When saving is appropriate, follow repository conventions instead of inventing new ones.
+Do not save files merely because auditability could be helpful. When saving is appropriate, follow repository conventions instead of inventing new ones.
+
+## Completion check
+
+Before finalizing, quickly verify:
+
+- the conversation already contains the full research deliverable, not just a summary
+- facts, inferences, and recommendations are kept distinct
+- multi-agent work was used only if it materially improved coverage
+- no files were written by default
 
 ## Reference map
 

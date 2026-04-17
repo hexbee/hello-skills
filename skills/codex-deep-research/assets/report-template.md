@@ -1,6 +1,6 @@
 # Conclusion Summary
 
-Give the main answer first.
+Give the main answer first, but do not stop at the conclusion. This report should stand on its own in the conversation unless the user explicitly asked for a brief answer.
 
 # Research Question and Scope
 
@@ -12,7 +12,13 @@ Explain how the research was done and what source types carried the most weight.
 
 # Key Findings
 
-Present the main findings in a way that separates facts from inferences.
+## Facts
+
+Present the strongest directly supported findings first.
+
+## Inferences
+
+Explain the conclusions drawn from those facts.
 
 # Evidence and Citations
 
@@ -24,7 +30,7 @@ Call out uncertainty, missing information, edge cases, and counterpoints.
 
 # Recommendation
 
-Recommend a next action or judgment tied to the user's goals.
+Recommend a next action or judgment tied to the user's goals. Also state when this recommendation fits well and when it would be the wrong choice.
 
 # Next Steps
 

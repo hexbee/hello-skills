@@ -2,6 +2,16 @@
 
 Use this staged process for deep-research tasks.
 
+## Default execution order
+
+1. Classify the request.
+2. Rewrite the internal brief.
+3. Run a light web sweep.
+4. Decide whether multi-agent work is justified.
+5. If needed, delegate with the sub-agent template.
+6. Synthesize and deliver the full report in the current conversation.
+7. Only then decide whether persistence is worth doing.
+
 ## 1. Classify the request
 
 Confirm the task is actually research-shaped:
@@ -65,6 +75,7 @@ Good role splits:
 - risks, edge cases, and counter-evidence
 
 Each sub-agent should own one clearly bounded question and return concise, source-backed findings rather than a full final answer.
+Do not send sub-agents off with open-ended "research this whole topic" requests when the main task can be decomposed more cleanly.
 
 ## 6. Synthesize
 
@@ -91,6 +102,8 @@ The report should feel like research:
 - note the main risks and unknowns
 - end with a practical recommendation or next step when appropriate
 
+Unless the user explicitly asks for a shorter answer, the full report should appear directly in the conversation. Do not collapse the session output into a summary while moving the real deliverable into a file.
+
 ## 8. Decide whether to persist
 
 Default to in-session delivery. Save artifacts only if:
@@ -98,3 +111,12 @@ Default to in-session delivery. Save artifacts only if:
 - the user asks
 - the output is worth reusing
 - auditability matters for follow-on work
+
+## Run-completion checklist
+
+Before finishing, verify:
+
+- the current conversation already contains the full research answer
+- facts, inferences, and recommendations are distinguishable
+- multi-agent work was justified rather than decorative
+- persistence was avoided unless genuinely needed

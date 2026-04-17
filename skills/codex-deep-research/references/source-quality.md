@@ -35,6 +35,7 @@ When sources disagree:
 - identify which claim is newer, more direct, or more authoritative
 - explain why one interpretation seems stronger
 - keep uncertainty visible if the conflict is unresolved
+- if multiple sub-agents report back, merge by source strength and recency rather than by which sub-agent sounded most confident
 
 ## Research hygiene
 

@@ -8,6 +8,7 @@ Research outputs must make source support visible.
 - Prefer linking the strongest source directly rather than citing a weaker intermediary.
 - If a claim depends on recent information, include an absolute date when useful.
 - If evidence is limited or mixed, say that in the prose instead of implying certainty.
+- The primary research deliverable should appear in the conversation itself; file output is optional and should not replace a complete cited answer.
 
 ## Recommended style
 
