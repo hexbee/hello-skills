@@ -1,0 +1,7 @@
+interface:
+  display_name: "Resume Builder"
+  short_description: "Build polished resumes with strong layout and hiring signal."
+  default_prompt: "Use $resume-builder to turn my career history into a hiring-ready resume."
+
+policy:
+  allow_implicit_invocation: true
