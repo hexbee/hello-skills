@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix OrbStack Docker Pull"
+  short_description: "Fix OrbStack Docker pull EOFs"
+  default_prompt: "Use $fix-orbstack-docker-pull to diagnose my OrbStack Docker pull failure and apply the safest proxy or daemon configuration fix."
