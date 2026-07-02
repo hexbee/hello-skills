@@ -1,0 +1,4 @@
+interface:
+  display_name: "Follow Builders Lite"
+  short_description: "Lightweight AI builders digest from trusted feeds"
+  default_prompt: "Use $follow-builders-lite to prepare a concise AI builders digest from the upstream follow-builders feeds."
