@@ -1,0 +1,9 @@
+interface:
+  display_name: "X Thread Poster"
+  short_description: "Post multi-tweet X threads with Chrome DevTools"
+  default_prompt: "Use $x-thread-poster to compose and post a multi-part X thread with a source link."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chrome-devtools"
+      description: "Chrome DevTools MCP for navigating X, reading snapshots, and entering composer text."
