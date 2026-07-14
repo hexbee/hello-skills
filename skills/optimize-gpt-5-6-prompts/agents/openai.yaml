@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optimize GPT-5.6 Prompts"
+  short_description: "Review, simplify, and draft prompts for GPT-5.6"
+  default_prompt: "Use $optimize-gpt-5-6-prompts to review and improve this prompt for GPT-5.6."
