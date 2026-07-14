@@ -15,7 +15,7 @@ This makes skills easy to discover, reuse, and version across different agent ru
 
 ## 2. Skills in This Repository
 
-This repository currently includes the following skills (28):
+This repository currently includes the following skills (29):
 
 - `agent-first-product-strategy`: Reframe AI product strategy from human-first assumptions to agent-first positioning, metrics, and execution.
 - `agent-teams-guide`: Guide for orchestrating and controlling Claude Code agent teams.
@@ -39,6 +39,7 @@ This repository currently includes the following skills (28):
 - `longitudinal-cross-sectional-research`: Write deep research reports that combine longitudinal history with cross-sectional comparison.
 - `multi-agent-systems`: Design orchestrator-subagent LLM architectures.
 - `mungers-lattice`: Multidisciplinary decision analysis with Munger-style mental models.
+- `optimize-gpt-5-6-prompts`: Review, simplify, migrate, and create prompts for GPT-5.6 and the GPT-5.6 family.
 - `research-content-router`: Route research-to-content workflows from research through synthesis to publishable output.
 - `resume-builder`: Generate and revise job resumes from raw notes, existing resumes, career histories, or profile snippets.
 - `retrospective-master`: Structured retrospective coaching using the GRAI method.
