@@ -15,7 +15,7 @@ This makes skills easy to discover, reuse, and version across different agent ru
 
 ## 2. Skills in This Repository
 
-This repository currently includes the following skills (29):
+This repository currently includes the following skills (30):
 
 - `agent-first-product-strategy`: Reframe AI product strategy from human-first assumptions to agent-first positioning, metrics, and execution.
 - `agent-teams-guide`: Guide for orchestrating and controlling Claude Code agent teams.
@@ -45,6 +45,7 @@ This repository currently includes the following skills (29):
 - `retrospective-master`: Structured retrospective coaching using the GRAI method.
 - `saas-agent-toolkit`: Turn SaaS capabilities into agent-usable tool contracts with guardrails, approvals, and auditability.
 - `url-to-markdown`: Convert a public webpage URL into a reusable Markdown file with a bundled script and agent-friendly execution flow.
+- `vibe-design`: Design, specify, implement, or review AI-native and Agent product interfaces with product intent, domain semantics, GenUI/A2UI controls, and evidence-based evaluation.
 - `x-thread-poster`: Post multi-part X/Twitter threads through Chrome DevTools MCP using the user's logged-in browser session.
 
 ## 3. Quick Start

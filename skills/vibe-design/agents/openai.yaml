@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vibe Design"
+  short_description: "为 Agent 产品设计、生成并评审可控的动态界面"
+  default_prompt: "Use $vibe-design to turn this Agent product requirement into a design spec, interaction flow, and review checklist."
